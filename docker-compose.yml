@@ -1,15 +1,64 @@
-version: '3.1'
+version: '3.8'
 services:
   stats-server:
+    restart: on-failure
+    build: ./stats-service/server
+    image: ewm-stats-server
+    container_name: "ewm-stats-server"
     ports:
       - "9090:9090"
+    depends_on:
+      - stats-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/stats_db
+      - POSTGRES_USER=owner
+      - POSTGRES_PASSWORD=password
+      - DB_NAME=stats_db
+      - SPRING_DATASOURCE_USERNAME=owner
+      - SPRING_DATASOURCE_PASSWORD=password
+      - DB_HOST=stats-db
+      - DB_PORT=6541
 
   stats-db:
     image: postgres:14-alpine
+    container_name: "stats-db"
+    ports:
+      - "6541:5432"
+    volumes:
+      - /var/lib/postgresql/stats-service
+    environment:
+      - POSTGRES_DB=stats_db
+      - POSTGRES_USER=owner
+      - POSTGRES_PASSWORD=password
 
   ewm-service:
+    restart: on-failure
+    build: ./main-service
+    image: ewm-main-service
+    container_name: "ewm-main-service"
     ports:
       - "8080:8080"
+    depends_on:
+      - main-db
+      - stats-server
+    environment:
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://main-db:5433/main_db
+        - POSTGRES_USER=owner
+        - POSTGRES_PASSWORD=password
+        - DB_NAME=main_db
+        - SPRING_DATASOURCE_USERNAME=owner
+        - SPRING_DATASOURCE_PASSWORD=password
+        - DB_HOST=main-db
+        - DB_PORT=6542
 
-  ewm-db:
+  main-db:
     image: postgres:14-alpine
+    container_name: "main-db"
+    ports:
+      - "6542:5433"
+    volumes:
+      - /var/lib/postgresql/main-service
+    environment:
+      - POSTGRES_DB=main_db
+      - POSTGRES_USER=owner
+      - POSTGRES_PASSWORD=password

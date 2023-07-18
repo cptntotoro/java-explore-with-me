@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   stats-server:
+    restart: on-failure
     build: ./stats-service/server
     image: ewm-stats-server
     container_name: "ewm-stats-server"
@@ -23,12 +24,15 @@ services:
     container_name: "stats-db"
     ports:
       - "6541:5432"
+    volumes:
+      - /var/lib/postgresql/stats-service
     environment:
       - POSTGRES_DB=stats_db
       - POSTGRES_USER=owner
       - POSTGRES_PASSWORD=password
 
   ewm-service:
+    restart: on-failure
     build: ./main-service
     image: ewm-main-service
     container_name: "ewm-main-service"
@@ -52,6 +56,8 @@ services:
     container_name: "main-db"
     ports:
       - "6542:5433"
+    volumes:
+      - /var/lib/postgresql/main-service
     environment:
       - POSTGRES_DB=main_db
       - POSTGRES_USER=owner

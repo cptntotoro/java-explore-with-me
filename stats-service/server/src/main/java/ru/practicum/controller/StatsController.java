@@ -50,7 +50,7 @@ public class StatsController {
             return ResponseEntity.badRequest().build();
         }
 
-        if(startDT.isAfter(endDT)) {
+        if (startDT.isAfter(endDT)) {
             return ResponseEntity.badRequest().build();
         }
 

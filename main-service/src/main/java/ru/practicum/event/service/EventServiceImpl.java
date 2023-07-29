@@ -130,9 +130,7 @@ public class EventServiceImpl implements EventService {
                 .and(hasRangeEnd(rangeEnd))
                 .and(hasAvailable(onlyAvailable)), pageable);
 
-        for (Event event : eventsPage) {
-            updateViews(event, request);
-        }
+        updateViews(eventsPage.toList(), request);
 
         return eventsPage.stream()
                 .filter(event -> event.getPublishedOn() != null)
@@ -146,9 +144,8 @@ public class EventServiceImpl implements EventService {
             throw new ObjectNotFoundException("Event with id = " + eventId + " was not found.");
         });
 
-        updateViews(event, request);
+        updateViews(Collections.singletonList(event), request);
 
-        event = eventRepository.save(event);
         return eventMapper.eventToEventFullDto(event);
     }
 
@@ -211,7 +208,7 @@ public class EventServiceImpl implements EventService {
         return eventMapper.eventToEventFullDto(event);
     }
 
-    private void updateViews(Event event, HttpServletRequest request) {
+    private void updateViews(List<Event> events, HttpServletRequest request) {
         RequestDto requestDto = new RequestDto();
         requestDto.setIp(request.getRemoteAddr());
         requestDto.setUri(request.getRequestURI());
@@ -229,7 +226,10 @@ public class EventServiceImpl implements EventService {
         if (listResponseEntity.getStatusCode() == HttpStatus.OK &&
                 Optional.ofNullable(listResponseEntity.getBody())
                         .map(List::isEmpty).orElse(false)) {
-            event.setViews(event.getViews() + 1);
+            events.forEach(event -> {
+                event.setViews(event.getViews() + 1);
+            });
+            eventRepository.saveAll(events);
         }
     }
 

@@ -42,7 +42,7 @@ services:
       - main-db
       - stats-server
     environment:
-        - SPRING_DATASOURCE_URL=jdbc:postgresql://main-db:5433/main_db
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://main-db:5432/main_db
         - POSTGRES_USER=owner
         - POSTGRES_PASSWORD=password
         - DB_NAME=main_db
@@ -55,7 +55,7 @@ services:
     image: postgres:14-alpine
     container_name: "main-db"
     ports:
-      - "6542:5433"
+      - "6542:5432"
     volumes:
       - /var/lib/postgresql/main-service
     environment:

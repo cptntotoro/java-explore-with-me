@@ -54,7 +54,7 @@ Java, Spring Boot, Spring JPA, PostgreSQL, REST API, Docker, Mockito, JUnit, Map
     - rangeEnd - конец временного отрезка в формате yyyy-MM-dd HH:mm:ss
     - from - параметр для пагинации
     - size - параметр для пагинации
-- PATCH /admin/events/{eventId} - Редактирование данных события и его статуса (отклонение/публикация)
+- PATCH /admin/events/{eventId} - Редактирование данных события 
 <br>
 
 - GET /events - Поиск событий по параметрам запроса в любой комбинации:
@@ -78,7 +78,7 @@ Java, Spring Boot, Spring JPA, PostgreSQL, REST API, Docker, Mockito, JUnit, Map
 - POST /admin/users - Добавление нового пользователя
 - GET /admin/users - Получение информации о пользователях
 - DELETE /admin/users/{userId} - Удаление пользователя
-- POST /admin/compilations - Добавление новой подборки (подборка может не содержать событий)
+- POST /admin/compilations - Добавление новой подборки
 - DELETE /admin/compilations/{compId} - Удаление подборки
 - PATCH /admin/compilations/{compId} - Обновить информацию о подборке
 - POST /admin/categories Добавление новой категории

@@ -30,32 +30,43 @@ Java, Spring Boot, Spring JPA, PostgreSQL, REST API, Docker, Mockito, JUnit, Map
 
 ### main-service 
 
-- GET /compilations - Получение подборок событий
-- GET /compilations/{compId} - Получение подборки событий по его id
-<br>
-
-- POST /admin/categories Добавление новой категории
-- DELETE /admin/categories/{catId} Удаление категории
-- GET /admin/categories/{catId} Получение списка бронирований для всех вещей текущего пользователя
-<br>
-
-- GET /users/{userId}/events - Получение событий, добавленных текущим пользователем
 - POST /users/{userId}/events - Добавление нового события
-- GET /users/{userId}/events/{eventId} - Получение полной информации о событии добавленном текущим пользователем
+- GET /users/{userId}/events/{eventId} - Получение информации о событии, добавленном текущим пользователем
 - PATCH /users/{userId}/events/{eventId} - Изменение события добавленного текущим пользователем
-- GET /users/{userId}/events/{eventId}/requests - Получение информации о запросах на участие в событии текущего пользователя
-- PATCH /users/{userId}/events/{eventId}/requests - Изменение статуса (подтверждена, отменена) заявок на участие в событии текущего пользователя
+- GET /users/{userId}/events - Получение событий, добавленных текущим пользователем
+- GET /users/{userId}/events/{eventId}/requests - Получение запросов на участие в событии текущего пользователя
+- PATCH /users/{userId}/events/{eventId}/requests - Изменение статуса (подтверждение, отмена) заявок на участие в событии текущего пользователя
 <br>
 
 - GET /categories - Получение категорий
 - GET /categories/{catId} - Получение информации о категории по её идентификатору
 <br>
 
-- GET /admin/events - Поиск событий
+- GET /compilations - Получение подборок событий
+- GET /compilations/{compId} - Получение подборки событий по его id
+<br>
+
+- GET /admin/events - Поиск событий по параметрам запроса в любой комбинации:
+    - users - список id пользователей
+    - states - список статусов события (PENDING, PUBLISHED, CANCELED)
+    - categories - список id категорий событий
+    - rangeStart - начало временного отрезка в формате yyyy-MM-dd HH:mm:ss
+    - rangeEnd - конец временного отрезка в формате yyyy-MM-dd HH:mm:ss
+    - from - параметр для пагинации
+    - size - параметр для пагинации
 - PATCH /admin/events/{eventId} - Редактирование данных события и его статуса (отклонение/публикация)
 <br>
 
-- GET /events/{id} - Получение подробной информации об опубликованном событии по его идентификатору
+- GET /events - Поиск событий по параметрам запроса в любой комбинации:
+    - text - текст для поиска в названии и описании событий
+    - categories - список id категорий событий
+    - paid - только платные события (true/false)
+    - rangeStart - начало временного отрезка в формате yyyy-MM-dd HH:mm:ss
+    - rangeEnd - конец временного отрезка в формате yyyy-MM-dd HH:mm:ss
+    - onlyAvailable - только доступные события, т.е. у которых еще не исчерпан лимит участников (true/false)
+    - sort - способ сортировки событий (EVENT_DATE, VIEWS)
+    - from - параметр для пагинации
+    - size - параметр для пагинации
 - GET /events/{id} - Получение подробной информации об опубликованном событии по его идентификатору
 <br>
 
@@ -64,16 +75,23 @@ Java, Spring Boot, Spring JPA, PostgreSQL, REST API, Docker, Mockito, JUnit, Map
 - DELETE /users/{userId}/requests/{requestId}/cancel - Отмена своего запроса на участие в событии
 <br>
 
-- GET /admin/users - Получение информации о пользователях
 - POST /admin/users - Добавление нового пользователя
+- GET /admin/users - Получение информации о пользователях
 - DELETE /admin/users/{userId} - Удаление пользователя
 - POST /admin/compilations - Добавление новой подборки (подборка может не содержать событий)
 - DELETE /admin/compilations/{compId} - Удаление подборки
 - PATCH /admin/compilations/{compId} - Обновить информацию о подборке
+- POST /admin/categories Добавление новой категории
+- GET /admin/categories/{catId} Получение списка бронирований для всех вещей текущего пользователя
+- DELETE /admin/categories/{catId} Удаление категории
 <br>
 
-- GET /events/{eventId}/comments/{commentId} - получение комментария по его id
-- GET /events/{eventId}/comments - получение списка комментариев события
+- POST /users/{userId}/events/{eventId}/comments - Добавление комментария к событию
+- PATCH /users/{userId}/events/{eventId}/comments/{commentId} - Обновление комментария 
+- GET /users/{userId}/events/{eventId}/comments/{commentId} - Получение комментария к событию
+- DELETE /users/{userId}/events/{eventId}/comments/{commentId} - Удаление комментария к событию
+- GET /users/{userId}/events/{eventId}/comments - Получение списка комментариев пользователя к событию
+- GET /users/{userId}/comments - Получение всех комментариев пользователя
 <br>
 
 - POST /users/{userId}/events/{eventId}/comments - добавление комментария пользователем событию

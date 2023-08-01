@@ -138,7 +138,7 @@ public class RequestServiceImpl implements RequestService {
         List<ParticipationRequest> participationRequests = requestRepository.findAllByIdInAndAndEventId(requestsUpdate.getRequestIds(), eventId);
 
         if (participationRequests.size() != requestsUpdate.getRequestIds().size()) {
-            throw new ObjectNotFoundException("Incorrect request id(s) received in the request body.");
+            throw new ObjectNotFoundException("Incorrect request id(s) in the request body.");
         }
 
         for (ParticipationRequest request : participationRequests) {

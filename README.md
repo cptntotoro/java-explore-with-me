@@ -1,3 +1,5 @@
+https://github.com/cptntotoro/java-explore-with-me/pull/5
+
 # Explore with me - микросервисное приложение-афиша мероприятий
 Java, Spring Boot, Spring JPA, PostgreSQL, REST API, Docker, Mockito, JUnit, MapStruct, Lombok
 

@@ -40,7 +40,7 @@ Java, Spring Boot, Spring JPA, PostgreSQL, REST API, Docker, Mockito, JUnit, Map
 
 - GET /categories - получить все категории
 - GET /categories/{catId} - получить категорию
-- <br>
+<br>
 
 - GET /compilations - получить все подборки событий
 - GET /compilations/{compId} - получить подборку событий
@@ -103,7 +103,6 @@ Java, Spring Boot, Spring JPA, PostgreSQL, REST API, Docker, Mockito, JUnit, Map
     - size - параметр для пагинации
   - PATCH /admin/comments - изменить статусы комментариев 
 <br>
-
 
 ### stats-service 
 

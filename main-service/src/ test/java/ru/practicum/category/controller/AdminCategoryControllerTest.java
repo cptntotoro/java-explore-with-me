@@ -78,8 +78,7 @@ public class AdminCategoryControllerTest {
     void delete_shouldReturnStatusNoContent() throws Exception {
         doNothing().when(categoryService).delete(any());
 
-        mockMvc.perform(delete("/admin/categories/{catId}", 1)
-                        .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/admin/categories/{catId}", 1))
                 .andExpect(status().isNoContent());
 
         verify(categoryService, times(1)).delete(any());

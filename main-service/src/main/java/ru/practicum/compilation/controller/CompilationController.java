@@ -12,7 +12,7 @@ import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/compilations")
+@RequestMapping("/compilations")
 @RequiredArgsConstructor
 @Slf4j
 public class CompilationController {

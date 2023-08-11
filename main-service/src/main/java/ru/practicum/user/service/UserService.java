@@ -1,14 +1,22 @@
 package ru.practicum.user.service;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import ru.practicum.user.dto.NewUserRequestDto;
 import ru.practicum.user.dto.UserDto;
+import ru.practicum.user.model.User;
 
 import java.util.List;
 
-public interface UserService {
-    List<UserDto> getUsers(List<Long> ids, Integer from, Integer size);
+public interface UserService extends UserDetailsService {
+    // TODO: Метод для Security. Мб UserDto заменить
+    List<UserDto> getAll();
 
-    UserDto addUser(NewUserRequestDto body);
+    List<UserDto> getByIds(List<Long> ids, Integer from, Integer size);
 
-    void deleteUserById(Long userId);
+    UserDto addAdminUser(NewUserRequestDto body);
+
+    void delete(Long userId);
+
+    // TODO: Метод для Security
+    List<User> getUsersWithIdBiggerThan(Long idMin);
 }

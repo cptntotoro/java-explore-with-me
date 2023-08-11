@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/admin/users")
+@RequestMapping("/admin/users")
 @RequiredArgsConstructor
 @Slf4j
 public class AdminUserController {
@@ -24,7 +24,7 @@ public class AdminUserController {
     public UserDto addAdminUser(@RequestBody @Valid NewUserRequestDto newUserRequestDto) {
 
         log.info("Calling POST: /admin/users with 'newUserRequestDto': {}", newUserRequestDto.toString());
-        return userService.addUser(newUserRequestDto);
+        return userService.addAdminUser(newUserRequestDto);
     }
 
     @GetMapping
@@ -33,7 +33,7 @@ public class AdminUserController {
                                        @RequestParam(name = "size", defaultValue = "10", required = false) Integer size) {
 
         log.info("Calling GET: /admin/users with 'ids': {}, 'from': {}, 'size': {}", ids, from, size);
-        return userService.getUsers(ids, from, size);
+        return userService.getByIds(ids, from, size);
     }
 
     @DeleteMapping("/{userId}")
@@ -41,6 +41,6 @@ public class AdminUserController {
     public void deleteAdminUser(@PathVariable Long userId) {
 
         log.info("Calling DELETE: /admin/users/{userId} with 'userId': {}", userId);
-        userService.deleteUserById(userId);
+        userService.delete(userId);
     }
 }

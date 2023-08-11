@@ -49,7 +49,7 @@ public class EventServiceImpl implements EventService {
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final EventMapper eventMapper;
-    private final StatsClient statsClient = new StatsClient("http://ewm-stats-server:9090");
+    private final StatsClient statsClient = new StatsClient("http://localhost:9090");
 
     @Override
     public List<EventFullDto> getAdminEvents(List<Long> users, List<EventState> states, List<Long> categories,
@@ -120,7 +120,7 @@ public class EventServiceImpl implements EventService {
         }
 
         Pageable pageable = sort.equals(EventSort.VIEWS)
-                ? PageRequest.of(from / size, size, Sort.by("views"))
+                ? PageRequest.of(from / size, size, Sort.by("WEB-INF/views"))
                 : PageRequest.of(from / size, size, Sort.by("eventDate"));
 
         Page<Event> eventsPage = eventSpecRepository.findAll(where(hasText(text))

@@ -6,13 +6,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.practicum.exception.ObjectNotFoundException;
 import ru.practicum.exception.SQLConstraintViolationException;
-import ru.practicum.security.model.Role;
 import ru.practicum.security.repository.RoleRepository;
 import ru.practicum.user.dto.NewUserRequestDto;
 import ru.practicum.user.dto.UserDto;
@@ -22,7 +18,6 @@ import ru.practicum.user.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,15 +31,20 @@ public class UserServiceImpl implements UserService {
 
     private final RoleRepository roleRepository;
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserMapper userMapper;
 
     // TODO: Метод для Security. Мб UserDto заменить
     @Override
     public UserDto addAdminUser(NewUserRequestDto newUserRequestDto) throws SQLConstraintViolationException {
-        User user = userMapper.userDtoToUser(newUserRequestDto);
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
-        user.setPassword(bCryptPasswordEncoder.encode(newUserRequestDto.getPassword()));
+        User user = userMapper.newUserRequestDtoToUser(newUserRequestDto);
+
+//        Role role = roleRepository.getByName("ROLE_USER").orElseThrow(() -> {
+//            throw new ObjectNotFoundException("User role with name = 'ROLE_USER' doesn't exist.");
+//        });
+
+//        user.setRoles(Collections.singleton(role));
+//        user.setPassword(bCryptPasswordEncoder.encode(newUserRequestDto.getPassword()));
 
 //        User userDtoToSave;
 
@@ -114,11 +114,11 @@ public class UserServiceImpl implements UserService {
     }
 
     // TODO: Метод для Security
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new ObjectNotFoundException("User with username = " + username + " doesn't exist."));
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        return userRepository.findByUsername(username)
+//                .orElseThrow(() -> new ObjectNotFoundException("User with username = " + username + " doesn't exist."));
+//    }
 
     // TODO: Метод для Security
     @Override

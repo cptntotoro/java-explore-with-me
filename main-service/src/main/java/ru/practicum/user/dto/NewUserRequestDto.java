@@ -16,11 +16,13 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class NewUserRequestDto {
 
+    @NotNull
     @NotBlank
     @Length(min = 2, max = 250)
     private String name;
 
-    @Size(min = 2, message = "Не меньше 5 знаков")
+    @NotNull
+    @Size(min = 5)
     private String username;
 
     @NotNull
@@ -29,9 +31,11 @@ public class NewUserRequestDto {
     @Length(min = 6, max = 254)
     private String email;
 
-    @Size(min = 2, message = "Не меньше 5 знаков")
+    @NotNull
+    @Size(min = 5)
     private String password;
 
+    @NotNull
     @Transient
     private String passwordConfirm;
 }

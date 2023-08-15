@@ -176,7 +176,7 @@ public class CommentServiceImpl implements CommentService {
                         .map(commentMapper::commentToCommentDto)
                         .collect(Collectors.toList());
             case DELETED:
-                comments.forEach(comment -> commentRepository.deleteAllById(updateRequest.getCommentIds()));
+                comments.forEach(comment -> commentRepository.deleteAllByIdIn(updateRequest.getCommentIds()));
                 return new ArrayList<>();
             default:
                 throw new IncorrectRequestException("Incorrect admin moderate request with status 'Pending'.");

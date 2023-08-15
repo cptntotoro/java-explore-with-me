@@ -1,4 +1,4 @@
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%--<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>--%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 <%-- Эту страницу, как уже говорилось, обрабатывает контроллер Spring по умолчанию.
@@ -13,9 +13,9 @@
 </head>
 
 <body>
-<sec:authorize access="isAuthenticated()">
+<%--<sec:authorize access="isAuthenticated()">--%>
   <% response.sendRedirect("/"); %>
-</sec:authorize>
+<%--</sec:authorize>--%>
 <div>
   <form method="POST" action="/login">
     <h2>Вход в систему</h2>

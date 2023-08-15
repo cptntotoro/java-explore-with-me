@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="utf-8">
+    <title>Sign up</title>
+</head>
+<body>
+<h1>Registration</h1>
+<!--/*@thymesVar id="user" type="ru.practicum.user.dto.NewUserRequestDto"*/-->
+<div class="error-block">
+    <span th:text="${errorMessage}"></span>
+</div>
+
+<form th:action="@{/registration}" method="POST" th:object="${user}" >
+    <div>
+        <label>Name</label>
+        <input type="text" th:field="*{name}">
+
+    </div>
+    <div>
+        <label>Username</label>
+        <input type="text" th:field="*{username}"/>
+<!--        <p th:each="error : ${#fields.errors('username')}"-->
+<!--           th:text="${error}">Validation error</p>-->
+    </div>
+    <div>
+        <label>Email</label>
+        <input type="email" th:field="*{email}"/>
+<!--        <p th:each="error : ${#fields.errors('email')}"-->
+<!--           th:text="${error}">Validation error</p>-->
+    </div>
+    <div>
+        <label>Password</label>
+        <input type="password" th:field="*{password}"/>
+<!--        <p th:each="error : ${#fields.errors('password')}"-->
+<!--           th:text="${error}">Validation error</p>-->
+    </div>
+    <div>
+        <label>Confirm password</label>
+        <input type="password" th:field="*{passwordConfirm}"/>
+    </div>
+    <button type="submit">Create account</button>
+</form>
+
+<a th:href="@{/news.html}">News</a>
+</body>
+</html>

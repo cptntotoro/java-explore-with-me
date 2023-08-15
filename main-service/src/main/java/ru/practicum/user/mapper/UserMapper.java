@@ -14,9 +14,14 @@ public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "roles", ignore = true)
     User userDtoToUser(NewUserRequestDto newUserRequestDto);
 
     UserDto userToUserDto(User user);
 
     UserShortDto userToUserShortDto(User user);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "roles", ignore = true)
+    User newUserRequestDtoToUser(NewUserRequestDto newUserRequestDto);
 }

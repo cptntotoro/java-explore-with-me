@@ -29,10 +29,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(CommentController.class)
+@WebMvcTest(PrivateCommentController.class)
 @AutoConfigureMockMvc
 @TestPropertySource(properties = {"db.name=test"})
-public class CommentControllerTest {
+public class PrivateCommentControllerTest {
 
     @Autowired
     private ObjectMapper mapper;

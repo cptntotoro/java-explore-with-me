@@ -1,4 +1,4 @@
-package ru.practicum.user.controller;
+package ru.practicum.event.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,13 +14,14 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users/{userId}")
+@RequestMapping("/users/{userId}/events")
 @RequiredArgsConstructor
 @Slf4j
-public class UserController {
+public class PrivateEventController {
+
+    private final EventService eventService;
 
     private final RequestService requestService;
-    private final EventService eventService;
 
     @PostMapping("/events")
     @ResponseStatus(HttpStatus.CREATED)
@@ -57,30 +58,6 @@ public class UserController {
         return eventService.updateUserEventById(userId, eventId, eventDto);
     }
 
-    @GetMapping("/requests")
-    public List<ParticipationRequestDto> getUserRequests(@PathVariable Long userId) {
-
-        log.info("Calling GET: /users/{userId}/requests with 'userId': {}", userId);
-        return requestService.getUserRequests(userId);
-    }
-
-    @PostMapping("/requests")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ParticipationRequestDto addUserRequest(@PathVariable Long userId,
-                                                  @RequestParam(name = "eventId") Long eventId) {
-
-        log.info("Calling POST: /users/{userId}/requests with 'userId': {}, 'eventId': {}", userId, eventId);
-        return requestService.addParticipationRequest(userId, eventId);
-    }
-
-    @PatchMapping("/requests/{requestId}/cancel")
-    public ParticipationRequestDto updateUserRequest(@PathVariable Long userId,
-                                                     @PathVariable Long requestId) {
-
-        log.info("Calling PATCH: /users/{userId}/requests/{requestId}/cancel with 'userId': {}, 'requestId': {}", userId, requestId);
-        return requestService.cancelParticipationRequest(userId, requestId);
-    }
-
     @GetMapping("/events/{eventId}/requests")
     public List<ParticipationRequestDto> getUserEventsRequests(@PathVariable Long userId,
                                                                @PathVariable Long eventId) {
@@ -98,4 +75,6 @@ public class UserController {
                 "'eventId': {}, 'requestsUpdate': {}", userId, eventId, requestsUpdate);
         return requestService.updateEventRequests(userId, eventId, requestsUpdate);
     }
+
+
 }

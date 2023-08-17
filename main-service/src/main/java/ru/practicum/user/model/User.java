@@ -1,10 +1,14 @@
 package ru.practicum.user.model;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import ru.practicum.security.model.Role;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -15,7 +19,11 @@ import java.util.Set;
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
-public class User { //implements UserDetails
+// UserDetails предоставляет необходимую информацию для построения объекта Authentication
+// из DAO объектов приложения или других источников данных системы безопасности.
+// Объект UserDetails содержит имя пользователя, пароль, флаги:
+// isAccountNonExpired, isAccountNonLocked, isCredentialsNonExpired, isEnabled и Collection — прав (ролей) пользователя.
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +49,8 @@ public class User { //implements UserDetails
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+    // private Collection<? extends GrantedAuthority> authorities;
+    // https://github.com/bezkoder/spring-boot-login-example/blob/master/src/main/java/com/bezkoder/spring/login/security/services/UserDetailsImpl.java#L15
 
     public User(Long id, String email, String name) {
         this.id = id;
@@ -48,28 +58,32 @@ public class User { //implements UserDetails
         this.name = name;
     }
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return getRoles();
-//    }
-//
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isEnabled() {
-//        return true;
-//    }
+    public Set<Role> getRole() {
+        return roles;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/users/{userId}")
 @RequiredArgsConstructor
 @Slf4j
-public class CommentController {
+public class PrivateCommentController {
 
     private final CommentService commentService;
 

@@ -5,7 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ru.practicum.RequestDto;
+import ru.practicum.RequestOutputDto;
+import ru.practicum.StatsClient;
 import ru.practicum.category.model.Category;
 import ru.practicum.category.repository.CategoryRepository;
 import ru.practicum.event.dto.EventFullDto;
@@ -27,7 +32,9 @@ import ru.practicum.user.repository.UserRepository;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.springframework.data.jpa.domain.Specification.where;
@@ -42,7 +49,7 @@ public class EventServiceImpl implements EventService {
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final EventMapper eventMapper;
-//    private final StatsClient statsClient = new StatsClient("http://localhost:9090");
+    private final StatsClient statsClient = new StatsClient("http://ewm-stats-server:9090");
 
     @Override
     public List<EventFullDto> getAdminEvents(List<Long> users, List<EventState> states, List<Long> categories,
@@ -123,7 +130,7 @@ public class EventServiceImpl implements EventService {
                 .and(hasRangeEnd(rangeEnd))
                 .and(hasAvailable(onlyAvailable)), pageable);
 
-//        updateViews(eventsPage.toList(), request);
+        updateViews(eventsPage.toList(), request);
 
         return eventsPage.stream()
                 .filter(event -> event.getPublishedOn() != null)
@@ -137,7 +144,7 @@ public class EventServiceImpl implements EventService {
             throw new ObjectNotFoundException("Event with id = " + eventId + " was not found.");
         });
 
-//        updateViews(Collections.singletonList(event), request);
+        updateViews(Collections.singletonList(event), request);
 
         return eventMapper.eventToEventFullDto(event);
     }
@@ -201,30 +208,30 @@ public class EventServiceImpl implements EventService {
         return eventMapper.eventToEventFullDto(event);
     }
 
-//    private void updateViews(List<Event> events, HttpServletRequest request) {
-//        RequestDto requestDto = new RequestDto();
-//        requestDto.setIp(request.getRemoteAddr());
-//        requestDto.setUri(request.getRequestURI());
-//        requestDto.setTimestamp(LocalDateTime.now());
-//        requestDto.setApp("main-service");
-//
-//        ResponseEntity<List<RequestOutputDto>> listResponseEntity = statsClient.getStatsByIp(LocalDateTime.now().minusHours(1).format(DTF),
-//                LocalDateTime.now().format(DTF),
-//                Collections.singletonList(requestDto.getUri()),
-//                true,
-//                request.getRemoteAddr());
-//
-//        statsClient.addRequest(requestDto);
-//
-//        if (listResponseEntity.getStatusCode() == HttpStatus.OK &&
-//                Optional.ofNullable(listResponseEntity.getBody())
-//                        .map(List::isEmpty).orElse(false)) {
-//            events.forEach(event -> {
-//                event.setViews(event.getViews() + 1);
-//            });
-//            eventRepository.saveAll(events);
-//        }
-//    }
+    private void updateViews(List<Event> events, HttpServletRequest request) {
+        RequestDto requestDto = new RequestDto();
+        requestDto.setIp(request.getRemoteAddr());
+        requestDto.setUri(request.getRequestURI());
+        requestDto.setTimestamp(LocalDateTime.now());
+        requestDto.setApp("main-service");
+
+        ResponseEntity<List<RequestOutputDto>> listResponseEntity = statsClient.getStatsByIp(LocalDateTime.now().minusHours(1).format(DTF),
+                LocalDateTime.now().format(DTF),
+                Collections.singletonList(requestDto.getUri()),
+                true,
+                request.getRemoteAddr());
+
+        statsClient.addRequest(requestDto);
+
+        if (listResponseEntity.getStatusCode() == HttpStatus.OK &&
+                Optional.ofNullable(listResponseEntity.getBody())
+                        .map(List::isEmpty).orElse(false)) {
+            events.forEach(event -> {
+                event.setViews(event.getViews() + 1);
+            });
+            eventRepository.saveAll(events);
+        }
+    }
 
     private void updateEvent(Event event, Long userId, NewEventDto eventDto) {
         User initiator = userRepository.findById(userId).orElseThrow(() -> {

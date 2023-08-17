@@ -1,6 +1,7 @@
 package ru.practicum.security.model;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 import ru.practicum.user.model.User;
 
 import javax.persistence.*;
@@ -14,8 +15,11 @@ import java.util.Set;
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role  { // implements GrantedAuthority
+// GrantedAuthority отражает разрешения выданные пользователю в масштабе всего приложения,
+// такие разрешения (как правило называются «роли»), например ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN.
+public class Role implements GrantedAuthority {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     // должно соответствовать шаблону: «ROLE_ИМЯ», например, ROLE_USER
@@ -34,8 +38,8 @@ public class Role  { // implements GrantedAuthority
         this.name = name;
     }
 
-//    @Override
-//    public String getAuthority() {
-//        return getName();
-//    }
+    @Override
+    public String getAuthority() {
+        return getName();
+    }
 }

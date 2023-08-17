@@ -23,10 +23,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(CategoryController.class)
+@WebMvcTest(PublicCategoryController.class)
 @AutoConfigureMockMvc
 @TestPropertySource(properties = {"db.name=test"})
-public class CategoryControllerTest {
+public class PublicCategoryControllerTest {
 
     @Autowired
     private ObjectMapper mapper;

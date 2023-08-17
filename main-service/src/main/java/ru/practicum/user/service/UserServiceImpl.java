@@ -1,14 +1,22 @@
 package ru.practicum.user.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.practicum.exception.IncorrectRequestException;
 import ru.practicum.exception.ObjectNotFoundException;
 import ru.practicum.exception.SQLConstraintViolationException;
+import ru.practicum.security.model.Role;
 import ru.practicum.security.repository.RoleRepository;
 import ru.practicum.user.dto.NewUserRequestDto;
 import ru.practicum.user.dto.UserDto;
@@ -18,6 +26,7 @@ import ru.practicum.user.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,50 +37,34 @@ public class UserServiceImpl implements UserService {
     @PersistenceContext
     private EntityManager em;
     private final UserRepository userRepository;
-
     private final RoleRepository roleRepository;
-
-//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserMapper userMapper;
 
     // TODO: Метод для Security. Мб UserDto заменить
+    // saveUser
     @Override
     public UserDto addAdminUser(NewUserRequestDto newUserRequestDto) throws SQLConstraintViolationException {
-        User user = userMapper.newUserRequestDtoToUser(newUserRequestDto);
-
-//        Role role = roleRepository.getByName("ROLE_USER").orElseThrow(() -> {
-//            throw new ObjectNotFoundException("User role with name = 'ROLE_USER' doesn't exist.");
+//        User userFromDB = userRepository.findByUsername(newUserRequestDto.getUsername()).orElseThrow(() -> {
+//            throw new IncorrectRequestException("User with username = " + newUserRequestDto.getUsername() + " already exists.");
 //        });
 
-//        user.setRoles(Collections.singleton(role));
-//        user.setPassword(bCryptPasswordEncoder.encode(newUserRequestDto.getPassword()));
+        User user = userMapper.newUserRequestDtoToUser(newUserRequestDto);
 
-//        User userDtoToSave;
+        Role role = roleRepository.getByName("ROLE_USER").orElseThrow(() -> {
+            throw new ObjectNotFoundException("Role with name = 'USER' doesn't exist.");
+        });
 
-        try {
-            user = userRepository.save(user);
-        } catch (DataIntegrityViolationException e) {
-            throw new SQLConstraintViolationException("User name and/or email already exists.");
-        }
+        user.setRoles(Collections.singleton(role));
+        user.setPassword(newUserRequestDto.getPassword());
 
-        return userMapper.userToUserDto(user);
-    }
-
-// Старый код
-//    @Override
-//    public UserDto addAdminUser(NewUserRequestDto newUserRequestDto) {
-//        User user = userMapper.userDtoToUser(newUserRequestDto);
-//
-//        User userDtoToSave;
-//
 //        try {
-//            userDtoToSave = userRepository.save(user);
+            user = userRepository.save(user);
 //        } catch (DataIntegrityViolationException e) {
 //            throw new SQLConstraintViolationException("User name and/or email already exists.");
 //        }
-//
-//        return userMapper.userToUserDto(userDtoToSave);
-//    }
+
+        return userMapper.userToUserDto(user);
+    }
 
     // TODO: Метод для Security. Мб UserDto заменить
     public UserDto get(Long userId) {
@@ -113,17 +106,36 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    // TODO: Метод для Security
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        return userRepository.findByUsername(username)
-//                .orElseThrow(() -> new ObjectNotFoundException("User with username = " + username + " doesn't exist."));
-//    }
+    public User findByEmail(String email) throws UsernameNotFoundException {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ObjectNotFoundException("User with email = " + email + " doesn't exist."));
+    }
+
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new ObjectNotFoundException("User with username = " + username + " doesn't exist."));
+    }
 
     // TODO: Метод для Security
     @Override
     public List<User> getUsersWithIdBiggerThan(Long idMin) {
         return em.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
                 .setParameter("paramId", idMin).getResultList();
+    }
+
+    @Override
+    public UserDto add(NewUserRequestDto newUser) throws SQLConstraintViolationException {
+        User user = userMapper.newUserRequestDtoToUser(newUser);
+
+        Role role = roleRepository.getByName("ROLE_USER").orElseThrow(() -> {
+            throw new ObjectNotFoundException("Role 'USER' doesn't exist.");
+        });
+
+        user.setRoles(Collections.singleton(role)); // user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        user.setPassword(newUser.getPassword());
+
+        user = userRepository.save(user);
+
+        return userMapper.userToUserDto(user);
     }
 }

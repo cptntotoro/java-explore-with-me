@@ -4,7 +4,9 @@ Java, Spring Boot, Spring JPA, PostgreSQL, REST API, Docker, Mockito, JUnit, Map
 ## О проекте
 Приложение для размещения мероприятий и поиска компаний для участия в них
 
-![](https://pictures.s3.yandex.net/resources/S19_09-2_1674558748.png)
+<p align="center">
+  <img src="https://pictures.s3.yandex.net/resources/S19_09-2_1674558748.png" />
+</p>
 
 Приложение содержит четыре микросервиса: 
 - main-service для бизнес-логики

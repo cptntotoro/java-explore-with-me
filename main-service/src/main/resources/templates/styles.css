@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,600&display=swap');
+
+* {
+    top: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+    color: var(--color-10);
+}
+
+:root {
+    --color-one-main: #f36622;
+    --color-two: #362825;
+    --color-three: #feb319;
+
+    --color-four: #191e31;
+    --color-five: #ced5d8;
+    --color-six: #6a3837;
+
+    --color-seven: #e4e3e6;
+    --color-eight: #2c2525;
+    --color-nine: #f5b831;
+
+    --color-1: #fffffe;
+    --color-2: rgba(31, 35, 40, 0.84);
+    --color-3: #cd312d;
+    --color-4: #11788d;
+
+    --color-5: #ea5a4d;
+    --color-6: #3979b4;
+
+    --color-7: #d24d32;
+    --color-8: #14705e;
+    --color-9: #DCDCDB;
+    --color-10: #1f2328;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    /*background-color: #e4e3e6;*/
+    background-color: #FFFFFF;
+}
+
+h1 {
+    display: none;
+}
+
+/*---------------HEADER-------------*/
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    max-width: 100%;
+    padding: 20px 15%;
+    background: #FFFFFF;
+    box-shadow: 0 0 1px var(--color-10);
+}
+
+.navbar {
+    display: flex;
+    width: 100%;
+}
+
+.navbar ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    z-index: 999;
+    top: 0;
+}
+
+.navbar li {
+    list-style: none;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.navbar li a {
+    text-decoration: none;
+}
+
+.navbar li a:hover {
+    color: var(--color-7);
+}
+
+.navbar li:not(:first-child) {
+    margin-left: 3vw;
+}
+
+.logo {
+    float: left;
+    height: 35px;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 32px;
+}
+
+.searchbar {
+    display: flex;
+    border: 2px solid var(--color-10);
+    border-radius: 20px;
+    background: url(search-icon.png) no-repeat 1%;
+    background-size: 20px;
+    width: 80%;
+    max-width: 600px;
+    padding: 5px 10px 5px 35px;
+    cursor: auto;
+}
+
+/*---------------CONTENT BLOCK-------------*/
+
+.content-container {
+    display: block;
+}
+
+.column-container {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 100px 15%;
+    justify-content: space-between;
+}
+
+/*---------------RIGHT CONTENT BLOCK-------------*/
+
+.right-content-container {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    max-width: 200px;
+}
+
+.right-content-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #DCDCDB;
+    padding: 40px 0;
+    margin-bottom: 40px;
+}
+
+.right-content-header {
+    font-size: 20px;
+    font-weight: 700;
+    padding-bottom: 16px;
+}
+
+.right-content-block li {
+    list-style: none;
+    line-height: 1.5;
+}
+
+.right-content-list li a {
+    text-decoration: none;
+    color: var(--color-7);
+}
+
+.right-content-list li a:hover {
+    text-decoration: none;
+    color: var(--color-8);
+}
+
+/*---------------CATEGORIES BLOCK-------------*/
+
+.right-content-block .categories {
+    margin-bottom: 40px;
+}
+
+/*---------------MAIN CONTENT BLOCK-------------*/
+
+.main-content-block {
+    width: 75%;
+    background: #DCDCDB;
+    padding: 50px 0;
+}
+
+.main-content-block h2 {
+    font-size: 28px;
+    font-weight: 700;
+    padding-bottom: 25px;
+}
+
+/*------------MOST POPULAR EVENTS--------*/
+
+.most-popular-events {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.most-popular-events .popular-events-carousel {
+    display: flex;
+    flex-direction: column;
+}
+
+.popular-events-carousel .event-cards-container {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    overflow: hidden;
+}
+
+.event-cards-container .event-card {
+    display: block;
+    height: 500px;
+}
+
+.most-popular-events .img-cover {
+    display: block;
+    height: 100%;
+    transition: all .7s ease-in-out;
+}
+
+.most-popular-events .img-cover img {
+    min-width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.carousel-controls .control-circle {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: var(--color-7);
+    border-radius: 10px;
+    margin: 0 10px;
+}
+
+.carousel-controls .control-circle:hover {
+    background: var(--color-10);
+}
+
+/*--------ЛУЧШИЕ ПОДБОРКИ-----*/
+
+.event-picks {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.event-picks-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.event-picks-items .img-cover {
+    width: 23%;
+    margin-bottom: 20px;
+}
+
+.event-picks-items .img-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.event-picks-items .title {
+    position: relative;
+    font-size: 17px;
+    bottom: 30%;
+    left: 5px;
+    color: #e7e7e7;
+    width: fit-content;
+    margin: 0 auto;
+}
+

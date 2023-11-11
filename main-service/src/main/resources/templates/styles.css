@@ -92,6 +92,7 @@ h1 {
 
 .navbar li a:hover {
     color: var(--color-7);
+    text-decoration: underline;
 }
 
 .navbar li:not(:first-child) {
@@ -128,7 +129,7 @@ h1 {
     display: block;
 }
 
-.column-container {
+.content-column-container {
     display: flex;
     flex-direction: row-reverse;
     margin: 100px 15%;
@@ -148,9 +149,11 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #DCDCDB;
+    /*background: #DCDCDB;*/
     padding: 40px 0;
     margin-bottom: 40px;
+    /*border: var(--color-10) solid 1px;*/
+    /*border-radius: 25px;*/
 }
 
 .right-content-header {
@@ -170,7 +173,7 @@ h1 {
 }
 
 .right-content-list li a:hover {
-    text-decoration: none;
+    text-decoration: underline;
     color: var(--color-8);
 }
 
@@ -184,8 +187,8 @@ h1 {
 
 .main-content-block {
     width: 75%;
-    background: #DCDCDB;
-    padding: 50px 0;
+    /*background: #DCDCDB;*/
+    padding: 30px 0;
 }
 
 .main-content-block h2 {
@@ -209,14 +212,14 @@ h1 {
 
 .popular-events-carousel .event-cards-container {
     display: flex;
-    flex-direction: column;
-    height: 500px;
+    flex-direction: row;
+    height: 460px;
     overflow: hidden;
 }
 
 .event-cards-container .event-card {
     display: block;
-    height: 500px;
+    height: 460px;
 }
 
 .most-popular-events .img-cover {
@@ -226,6 +229,8 @@ h1 {
 }
 
 .most-popular-events .img-cover img {
+    /*height: auto;*/
+    /*width: auto;*/
     min-width: 100%;
     height: 100%;
     object-fit: cover;
@@ -247,15 +252,17 @@ h1 {
 }
 
 .carousel-controls .control-circle:hover {
+    cursor: pointer;
     background: var(--color-10);
 }
 
-/*--------ЛУЧШИЕ ПОДБОРКИ-----*/
+/*--------EVENT PICKS-----*/
 
 .event-picks {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-top: 30px;
 }
 
 .event-picks-items {
@@ -267,7 +274,7 @@ h1 {
 }
 
 .event-picks-items .img-cover {
-    width: 23%;
+    width: 30%;
     margin-bottom: 20px;
 }
 
@@ -287,3 +294,101 @@ h1 {
     margin: 0 auto;
 }
 
+/*--------FOOTER-----*/
+
+.footer {
+    display: block;
+    background: #DCDCDB;
+}
+
+.footer-column-container {
+    display: flex;
+    flex-direction: row;
+    margin: 0 15%;
+    justify-content: space-between;
+    padding: 50px 0;
+}
+
+.footer-column-header {
+    font-size: 16px;
+    font-weight: 700;
+    padding-bottom: 16px;
+}
+
+.footer-column li {
+    list-style: none;
+    line-height: 1.7;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.footer-column li a {
+    text-decoration: none;
+    color: var(--color-7);
+}
+
+.footer-column li a:hover {
+    text-decoration: underline;
+    color: var(--color-8);
+}
+
+.info-list {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    padding-right: 30px;
+    border-right: var(--color-10) solid 1px;
+}
+
+.info-logo {
+    display: block;
+    width: 150px;
+    height: 40px;
+}
+
+.description {
+    display: block;
+    max-width: 190px;
+    margin-top: 20px;
+    font-weight: 600;
+    font-size: 13px;
+    white-space: pre-line;
+}
+
+.apps-list {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: flex-start;
+}
+
+.apps-list li {
+    display: flex;
+    flex-direction: row;
+}
+
+.apps-list li:last-child {
+    margin-top: 10px;
+}
+
+.app-btn {
+    display: flex;
+    background: white;
+    border-radius: 10px;
+    padding: 6px;
+    justify-content: space-between;
+    max-width: 130px;
+}
+
+.app-btn-text {
+    display: block;
+    font-weight: 600;
+    font-size: 11px;
+    white-space: pre-line;
+    text-align: -webkit-center;
+
+}
+
+.app-btn-pic {
+    width: 35px;
+}

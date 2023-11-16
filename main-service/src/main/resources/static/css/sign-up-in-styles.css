@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600&display=swap');
+
+* {
+    top: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+    color: var(--font-color);
+}
+
+:root {
+    --accent-color: #d24d32;
+    --secondary-accent-color: #14705e;
+    --accent-background-color: #DCDCDB;
+    --font-color: #1f2328;
+    --form-background: #F5F7F8;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #FFFFFF;
+}
+
+/*---------------SIGN-UP FORM-------------*/
+
+.main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.pop-up-form {
+    margin: auto;
+    width: 450px;
+    background: #FFF;
+    border: var(--accent-color) 2px solid;
+    border-radius: 20px;
+    padding: 40px 35px;
+}
+
+.pop-up-header {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--font-color);
+    text-align: center;
+    margin: 25px 0 30px;
+}
+
+.pop-up-header a {
+    text-decoration: underline var(--accent-color);
+}
+
+.pop-up-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*margin: 30px auto 20px;*/
+    margin: 0 auto;
+    max-width: 350px;
+    /*width: fit-content;*/
+}
+
+.pop-up-input {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    background: var(--form-background);
+    border: var(--accent-background-color) 2px solid;
+    border-radius: 10px;
+}
+
+.pop-up-input:not(:last-of-type) {
+    margin-bottom: 20px;
+}
+
+.pop-up-input::placeholder {
+    font-weight: 500;
+    opacity: 0.5;
+}
+
+.pop-up-input:focus {
+    outline: none;
+    border: var(--accent-color) 2px solid;
+    border-radius: 10px;
+}
+
+.pop-up-btn {
+    margin-top: 40px;
+    background: var(--accent-color);
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #FFF;
+    text-decoration: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.pop-up-btn:hover {
+    background: var(--secondary-accent-color);
+    /*color: var(--font-color);*/
+}
+
+.x-close-btn {
+    position: relative;
+    left: 98%;
+    top: -100%;
+    content: url(../images/x-close-btn.png);
+    width: 24px;
+    cursor: pointer;
+}

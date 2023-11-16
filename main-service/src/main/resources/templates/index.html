@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Explore with me - найти компанию для посещения мероприятий</title>
+        <meta name="description" content="Explore with me - Приложение для размещения мероприятий и поиска компаний для участия в них">
+        <link rel="stylesheet" th:href="@{/css/common-styles.css}"/>
+        <link rel="stylesheet" th:href="@{/css/index-styles.css}"/>
+    </head>
+
+    <body>
+        <main class="main">
+            <header class="header">
+                <a href="/"><img class="logo" th:src="@{/images/logo-compass.png}" alt="logo"/></a>
+                <nav class="navbar">
+                    <form class="search" method="get" action="">
+                        <input class="searchbar" name="search" type="text" placeholder="Пикник">
+                    </form>
+                    <ul class="navbar-links">
+                        <li><a href="#">Каталог</a></li>
+                        <li><a href="sign-up.html">Войти</a></li>
+                        <li><a href="#">Аккаунт</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <h1>Explore with me</h1>
+
+            <div class="content-container">
+
+                <div class="content-column-container">
+
+                    <div class="right-content-container">
+
+                        <section class="right-content-block categories">
+                            <h3 class="right-content-header">Категории</h3>
+                            <ul class="right-content-list">
+                                <li><a href="#">Выставки</a></li>
+                                <li><a href="#">Концерты</a></li>
+                                <li><a href="#">Театр</a></li>
+                                <li><a href="#">Обучение</a></li>
+                                <li><a href="#">Кино</a></li>
+                                <li><a href="#">Фестивали</a></li>
+                                <li><a href="#">Экскурсии</a></li>
+                                <li><a href="#">Стендапы</a></li>
+                                <li><a href="#">Квесты</a></li>
+                            </ul>
+                        </section>
+
+                        <section class="right-content-block compilations">
+                            <h3 class="right-content-header">Подборки</h3>
+                            <ul class="right-content-list">
+                                <li><a href="#">Новые</a></li>
+                                <li><a href="#">Ближайшие</a></li>
+                                <li><a href="#">Массовые</a></li>
+                                <li><a href="#">Бесплатные</a></li>
+                                <li><a href="#">Платные</a></li>
+                                <li><a href="#">Популярные</a></li>
+                            </ul>
+                        </section>
+
+                    </div>
+
+                    <div class="main-content-block">
+
+                        <section class="most-popular-events main-block">
+
+                            <h2 class="main-content-header"><a href="#">Популярные события недели</a></h2>
+
+                            <div class="carousel">
+
+<!--                                <div class="carousel-inner2">-->
+                                <div class="carousel-inner">
+
+                                    <div class="carousel-item">
+                                        <h3 class="event-card-header">Пикник на финском заливе</h3>
+                                        <img src="https://i.ytimg.com/vi/hQqVIeIrr1c/maxresdefault.jpg" alt="Image 1">
+                                    </div>
+
+                                    <div class="carousel-item">
+                                        <h3 class="event-card-header">Пикник на финском заливе</h3>
+                                        <img src="https://i.ytimg.com/vi/hQqVIeIrr1c/maxresdefault.jpg" alt="Image 2">
+                                    </div>
+
+                                    <div class="carousel-item">
+                                        <h3 class="event-card-header">Пикник на финском заливе</h3>
+                                        <img src="https://i.ytimg.com/vi/hQqVIeIrr1c/maxresdefault.jpg" alt="Image 3">
+                                    </div>
+
+                                </div>
+<!--                                </div>-->
+
+                                <div class="carousel-controls">
+                                    <span class="control-circle event-card-1"></span>
+                                    <span class="control-circle event-card-2"></span>
+                                    <span class="control-circle event-card-3"></span>
+                                </div>
+
+                            </div>
+
+                        </section>
+
+                        <section class="upcoming-events main-block">
+
+                            <h2 class="main-content-header"><a href="#">Ближайшие события</a></h2>
+
+                            <div class="upcoming-events-items">
+
+                                <div class="upcoming-events-item">
+
+                                    <img src="https://krasivosti.pro/uploads/posts/2021-09/1630527368_12-krasivosti-pro-p-pokormi-belku-zhivotnie-krasivo-foto-13.jpg" title="Кормление белки с руки" alt="Кормление белки с руки">
+
+                                    <div class="upcoming-events-item-fields">
+
+                                        <h3 class="upcoming-events-item-header">Прогулка по Елагину острову</h3>
+
+                                        <p class="upcoming-events-item-description">Гуляем по парку и кормим белочек. Не забудьте орешки!</p>
+
+                                        <div class="upcoming-events-item-field">
+                                            <span class="item-icon location-icon"></span>
+                                            <span class="upcoming-events-field-item">ЦПКИО им. Кирова</span>
+                                        </div>
+
+                                        <div class="upcoming-events-item-field">
+                                            <span class="item-icon date-time-icon"></span>
+                                            <span class="upcoming-events-field-item">30.06.2024 18.00</span>
+                                        </div>
+
+                                        <div class="upcoming-events-item-field">
+                                            <span class="item-icon participants-icon"></span>
+                                            <span class="upcoming-events-field-item">Участники <span>3/10</span></span>
+                                        </div>
+
+                                        <div class="upcoming-events-item-field">
+                                            <span class="item-icon cost-icon"></span>
+                                            <span class="upcoming-events-field-item">Бесплатно</span>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="upcoming-events-item">
+
+                                    <img src="https://krasivosti.pro/uploads/posts/2021-09/1630527368_12-krasivosti-pro-p-pokormi-belku-zhivotnie-krasivo-foto-13.jpg" title="Кормление белки с руки" alt="Кормление белки с руки">
+
+                                    <div class="upcoming-events-item-fields">
+
+                                        <h3 class="upcoming-events-item-header">Прогулка по Елагину острову</h3>
+
+                                        <p class="upcoming-events-item-description">Гуляем по парку и кормим белочек. Не забудьте орешки!</p>
+
+                                        <div class="upcoming-events-item-field">
+                                            <span class="item-icon location-icon"></span>
+                                            <span class="upcoming-events-field-item">ЦПКИО им. Кирова</span>
+                                        </div>
+
+                                        <div class="upcoming-events-item-field">
+                                            <span class="item-icon date-time-icon"></span>
+                                            <span class="upcoming-events-field-item">30.06.2024 18.00</span>
+                                        </div>
+
+                                        <div class="upcoming-events-item-field">
+                                            <span class="item-icon participants-icon"></span>
+                                            <span class="upcoming-events-field-item">Участники <span>3/10</span></span>
+                                        </div>
+
+                                        <div class="upcoming-events-item-field">
+                                            <span class="item-icon cost-icon"></span>
+                                            <span class="upcoming-events-field-item">Бесплатно</span>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="upcoming-events-item">
+
+                                    <img src="https://krasivosti.pro/uploads/posts/2021-09/1630527368_12-krasivosti-pro-p-pokormi-belku-zhivotnie-krasivo-foto-13.jpg" title="Кормление белки с руки" alt="Кормление белки с руки">
+
+                                    <div class="upcoming-events-item-fields">
+
+                                        <h3 class="upcoming-events-item-header">Прогулка по Елагину острову</h3>
+
+                                        <p class="upcoming-events-item-description">Гуляем по парку и кормим белочек. Не забудьте орешки!</p>
+
+                                        <div class="upcoming-events-item-field">
+                                            <span class="item-icon location-icon"></span>
+                                            <span class="upcoming-events-field-item">ЦПКИО им. Кирова</span>
+                                        </div>
+
+                                        <div class="upcoming-events-item-field">
+                                            <span class="item-icon date-time-icon"></span>
+                                            <span class="upcoming-events-field-item">30.06.2024 18.00</span>
+                                        </div>
+
+                                        <div class="upcoming-events-item-field">
+                                            <span class="item-icon participants-icon"></span>
+                                            <span class="upcoming-events-field-item">Участники <span>3/10</span></span>
+                                        </div>
+
+                                        <div class="upcoming-events-item-field">
+                                            <span class="item-icon cost-icon"></span>
+                                            <span class="upcoming-events-field-item">Бесплатно</span>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="upcoming-events-show-more-btn">
+                                <a href="#" class="show-more-btn">Показать ещё</a>
+                            </div>
+
+                        </section>
+
+                        <section class="event-picks main-block">
+
+                            <h2 class="main-content-header"><a href="#">Лучшие подборки</a></h2>
+
+                            <div class="event-picks-items">
+                                <div class="event-picks-item">
+                                    <h3 class="event-item-header">Настольные игры</h3>
+                                    <img src="https://countryhelper.com/media/entertainment/tiles/Coastal_Board_Gamers.jpg" title="Пикник на финском заливе" alt="Пикник на финском заливе">
+                                </div>
+
+                                <div class="event-picks-item">
+                                    <h3 class="event-item-header">Иностранные языки</h3>
+                                    <img src="https://www.brain-food.ru/wp-content/uploads/2022/08/sa2-11-2048x1450.jpg" title="Пикник на финском заливе" alt="Пикник на финском заливе">
+                                </div>
+
+                                <div class="event-picks-item">
+                                    <h3 class="event-item-header">Поездки за город</h3>
+                                    <img src="https://reisenexclusiv.com/wp-content/uploads/2020/03/ImYanis-1320x880.jpg" title="Пикник на финском заливе" alt="Пикник на финском заливе">
+                                </div>
+
+                                <div class="event-picks-item">
+                                    <h3 class="event-item-header">Спорт</h3>
+                                    <img src="https://sportishka.com/uploads/posts/2022-11/thumbs/1667471716_29-sportishka-com-p-katanie-na-kayakakh-vkontakte-31.jpg" title="Пикник на финском заливе" alt="Пикник на финском заливе">
+                                </div>
+
+                                <div class="event-picks-item">
+                                    <h3 class="event-item-header">Театры и выставки</h3>
+                                    <img src="https://e7da267a-b67b-4f13-925b-81f4cc6ae450.selcdn.net/origin/da17106b-1a41-4a28-b30e-24759eaa6880.jpeg" title="Пикник на финском заливе" alt="Пикник на финском заливе">
+                                </div>
+
+                                <div class="event-picks-item">
+                                    <h3 class="event-item-header">Квизы</h3>
+                                    <img src="https://telegra.ph/file/62cc5fbbd44a3d4fecea6.png" title="Пикник на финском заливе" alt="Пикник на финском заливе">
+                                </div>
+
+                            </div>
+                        </section>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <footer class="footer">
+
+                <div class="footer-column-container">
+
+                    <div class="info footer-column">
+                        <ul class="info-list">
+                            <li><img class="info-logo" src="../static/images/logo-text.png"></li>
+                            <li><span class="description">Приложение для размещения мероприятий и поиска компаний для участия в них</span></li>
+                        </ul>
+                    </div>
+
+<!--                    <div class="divider"></div>-->
+
+                    <div class="about footer-column">
+                        <h2 class="footer-column-header">Проект</h2>
+                        <ul class="about-list">
+                            <li><a href="#">О нас</a></li>
+                            <li><a href="#">Отзывы</a></li>
+                            <li><a href="#">Сотрудничество</a></li>
+                            <li><a href="#">Каталог мест</a></li>
+                            <li><a href="#">Подборки</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="help footer-column">
+                        <h2 class="footer-column-header">Помощь</h2>
+                        <ul class="help-list">
+                            <li><a href="#">Вопрос — ответ</a></li>
+                            <li><a href="#">Правила</a></li>
+                            <li><a href="#">Обратная связь</a></li>
+                            <li><a href="#">Задать вопрос</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="contact footer-column">
+                        <h2 class="footer-column-header">Разработчик</h2>
+                        <ul class="contact-list">
+                            <li><a href="#">GitHub</a></li>
+                            <li><a href="#">LinkedIn</a></li>
+                            <li><a href="#">Email</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="apps footer-column">
+                        <h2 class="footer-column-header">Приложения</h2>
+                        <ul class="apps-list">
+                            <li><a href="#" class="app-btn">
+                                <img class="app-btn-pic" src="../static/images/app-store-logo.svg">
+                                <div class="app-btn-text">Скачайте в App Store</div>
+                            </a></li>
+
+                            <li><a href="#" class="app-btn">
+                                <img class="app-btn-pic" src="../static/images/google-play-logo.svg">
+                                <div class="app-btn-text">Скачайте в Google Play</div>
+                            </a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </footer>
+
+        </main>
+
+        <script src="../static/js/script.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://www.thymeleaf.org/">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore with me - войти в аккаунт</title>
+    <meta name="description" content="Explore with me - Приложение для размещения мероприятий и поиска компаний для участия в них">
+    <link rel="stylesheet" th:href=@{/css/sign-up-in-styles.css}"/>
+  </head>
+
+  <body>
+
+    <main class="main">
+
+      <div class="pop-up-form">
+
+        <h1 class="pop-up-header">Войти / <a href="sign-up.html">Регистрация</a></h1>
+
+        <form class="pop-up-fields" th:action="@{/sign-in}" method="POST" th:object="${user}">
+
+          <input class="pop-up-input" type="text" placeholder="Имя пользователя" th:field="*{username}"/>
+          <input class="pop-up-input" type="password" placeholder="Пароль" th:field="*{password}"/>
+
+          <button class="pop-up-btn" type="submit">Войти</button>
+
+        </form>
+
+        <a th:href="@{/}"><div class="x-close-btn"></div></a>
+
+      </div>
+
+    </main>
+
+  </body>
+</html>

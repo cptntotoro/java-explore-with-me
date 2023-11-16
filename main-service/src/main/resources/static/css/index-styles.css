@@ -1,0 +1,343 @@
+h1 {
+    display: none;
+}
+
+/*---------------CONTENT BLOCK-------------*/
+
+.content-container {
+    display: block;
+}
+
+.content-column-container {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 100px 15% 0;
+    justify-content: space-between;
+}
+
+/*---------------RIGHT CONTENT BLOCK-------------*/
+
+.right-content-container {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    max-width: 200px;
+}
+
+.right-content-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*background: #DCDCDB;*/
+    padding: 30px 0;
+    margin-bottom: 20px;
+    /*border: var(--color-10) solid 1px;*/
+    /*border-radius: 25px;*/
+}
+
+.right-content-header {
+    font-size: 20px;
+    font-weight: 700;
+    padding-bottom: 16px;
+}
+
+.right-content-block li {
+    list-style: none;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.right-content-list li a {
+    text-decoration: none;
+    color: var(--accent-color);
+}
+
+.right-content-list li a:hover {
+    text-decoration: underline;
+    color: var(--secondary-accent-color);
+}
+
+/*---------------CATEGORIES BLOCK-------------*/
+
+.right-content-block .categories {
+    margin-bottom: 40px;
+}
+
+/*---------------MAIN CONTENT BLOCK-------------*/
+
+.main-content-block {
+    width: 75%;
+    /*background: #DCDCDB;*/
+    padding: 30px 0;
+}
+
+.main-block {
+    margin-bottom: 60px;
+}
+
+.main-content-header {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.main-content-header a {
+    text-decoration: underline var(--accent-color);
+}
+
+.main-content-header a:hover {
+    text-decoration: underline;
+    color: var(--accent-color);
+}
+
+/*------------MOST POPULAR EVENTS--------*/
+
+.most-popular-events {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.popular-events-carousel {
+    display: flex;
+    flex-direction: column;
+}
+
+.event-cards-container {
+    display: flex;
+    flex-direction: row;
+    height: 460px;
+    overflow: hidden;
+}
+
+.event-card {
+    display: flex;
+    flex-direction: column;
+    height: 460px;
+}
+
+.event-card-header {
+    display: block;
+    position: relative;
+    top: 85%;
+    margin: -43px 10% 0 0;
+    background: var(--accent-color);
+    box-shadow: 0 0 20px 2px #000000;
+    color: #FFF;
+    padding: 10px 5%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: fit-content;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-inner {
+    display: flex;
+    overflow: hidden;
+    border-radius: 30px;
+}
+
+.carousel-item {
+    flex-shrink: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-item img {
+    display: block;
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.carousel-controls .control-circle {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: var(--accent-color);
+    border-radius: 10px;
+    margin: 0 10px;
+}
+
+.carousel-controls .control-circle:hover {
+    cursor: pointer;
+    background: var(--font-color);
+}
+
+/*--------UPCOMING EVENTS-----*/
+
+.upcoming-events {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.upcoming-events-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.upcoming-events-item {
+    display: block;
+    flex-direction: column;
+    width: 30%;
+    border: var(--font-color) solid 1px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/*.upcoming-events-item:nth-child(-n+3) {*/
+/*    margin-bottom: 30px;*/
+/*}*/
+
+.upcoming-events-item img {
+    display: block;
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.upcoming-events-item-fields {
+    display: flex;
+    flex-direction: column;
+    margin: 25px 20px 30px;
+}
+
+.upcoming-events-item-field {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.upcoming-events-item-field:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.upcoming-events-item-header {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 12px;
+}
+
+.upcoming-events-item-description {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 20px;
+}
+
+.upcoming-events-field-item {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.2;
+    /*margin-bottom: 10px;*/
+}
+
+.item-icon {
+    width: 20px;
+    margin: 0 8px 0 0;
+}
+
+.date-time-icon {
+    background: url(../images/date-time.png) no-repeat;
+    background-size: contain;
+}
+
+.item-icon.location-icon {
+    background: url(../images/location.png) no-repeat;
+    background-size: contain;
+}
+
+.item-icon.participants-icon {
+    background: url(../images/people.png) no-repeat;
+    background-size: contain;
+}
+
+.item-icon.cost-icon {
+    background: url(../images/cost.png) no-repeat;
+    background-size: contain;
+}
+
+.upcoming-events-show-more-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.show-more-btn {
+    display: flex;
+    align-items: center;
+    background: var(--accent-color);
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #FFF;
+    text-decoration: none;
+}
+
+/*--------EVENT PICKS-----*/
+
+.event-picks {
+    display: flex;
+    flex-direction: column;
+}
+
+.event-picks-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.event-picks-item {
+    position: relative;
+    /*flex-shrink: 0;*/
+    width: 30%;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.event-picks-item img {
+    display: block;
+    width: 100%;
+    height: 160px;
+    object-position: center;
+    object-fit: cover;
+}
+
+.event-item-header {
+    display: block;
+    position: relative;
+    background: var(--accent-color);
+    color: #FFF;
+    font-size: 16px;
+    padding: 5px 6%;
+    margin: -29px 10% 0 0;
+    width: fit-content;
+    /*text-overflow: ellipsis;*/
+    white-space: nowrap;
+    white-space: nowrap;
+    top: 85%;
+    box-shadow: 0 0 20px 2px #000000;
+    overflow: hidden;
+}

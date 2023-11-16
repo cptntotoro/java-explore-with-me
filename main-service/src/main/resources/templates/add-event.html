@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://www.thymeleaf.org/">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore with me - Профиль</title>
+    <meta name="description" content="Explore with me - Редактировать профиль">
+    <link rel="stylesheet" th:href="@{/css/common-styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/add-event.css}"/>
+  </head>
+
+<body>
+  <main class="main">
+
+    <header class="header">
+      <a href="/"><img class="logo" th:src="@{/images/logo-compass.png}" alt="logo"/></a>
+
+      <nav class="navbar">
+
+        <form class="search" method="GET" action="">
+          <input class="searchbar" name="search" type="text" placeholder="Пикник">
+        </form>
+
+        <ul class="navbar-links">
+          <li><a th:href="#">Каталог</a></li>
+          <li><a th:href="sign-up">Войти</a></li>
+          <li><a th:href="#">Аккаунт</a></li>
+        </ul>
+
+      </nav>
+
+    </header>
+
+    <div class="content-container">
+
+      <h1 class="add-event-header">Добавить событие</h1>
+
+      <div class="add-event-content-block">
+
+        <form class="add-event-fields" method="POST">
+
+          <div class="add-event-field">
+            <label class="add-event-label" for="title">Название</label>
+            <input class="add-event-input" type="text" id="title" required />
+            <span class="add-event-note">Заголовок события. 3-120 символов</span>
+          </div>
+
+          <div class="add-event-field">
+            <label class="add-event-label" for="description">Описание</label>
+            <textarea class="add-event-input" id="description" required ></textarea>
+            <span class="add-event-note">Полное описание события. 20-7000 символов</span>
+          </div>
+
+          <div class="add-event-field">
+            <label class="add-event-label" for="annotation">Аннотация</label>
+            <textarea class="add-event-input" id="annotation" required ></textarea>
+            <span class="add-event-note">Краткое описание события. 20-2000 символов</span>
+          </div>
+
+          <div class="add-event-field">
+            <label class="add-event-label" for="category">Категория</label>
+            <select class="add-event-input" id="category" required >
+              <option>Выберите категорию</option>
+              <option value="">option1</option>
+              <option value="">option2</option>
+              <option value="">option3</option>
+              <option value="">option3</option>
+            </select>
+          </div>
+
+          <div class="add-event-field">
+            <label class="add-event-label" for="date">Дата и время</label>
+            <input class="add-event-input" type="datetime-local" id="date" required />
+            <span class="add-event-note">Дата и время события</span>
+          </div>
+
+          <div class="add-event-field">
+            <label class="add-event-label" for="paid">Событие платное?</label>
+            <input class="add-event-input" type="checkbox" id="paid" required />
+            <span class="add-event-note">Поставьте галочку, если событие платное</span>
+          </div>
+
+          <div class="add-event-field location">
+            <label class="add-event-label location-lat-label" for="lat">Широта</label>
+            <input class="add-event-input location-lat-input" type="number" id="lat" required />
+
+            <label class="add-event-label location-lon-label" for="lon">Долгота</label>
+            <input class="add-event-input location-lon-input" type="number" id="lon" required />
+            <span class="location-note">Укажите широту и долготу - координаты места мероприятия </span>
+          </div>
+
+          <div class="add-event-field">
+            <label class="add-event-label" for="participants">Лимит участников</label>
+            <input class="add-event-input" type="number" step="1" min="0" id="participants"/>
+            <span class="add-event-note">Значение 0 означает отсутствие ограничения</span>
+          </div>
+
+          <div class="add-event-field">
+            <label class="add-event-label" for="requests">Одобрение заявок</label>
+            <input class="add-event-input" type="checkbox" id="requests"/>
+            <span class="add-event-note">Поставьте галочку, если хотите вручную отбирать заявки на участие</span>
+          </div>
+
+          <button class="add-event-btn" type="submit">Сохранить событие</button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+    <footer class="footer">
+
+      <div class="footer-column-container">
+
+        <div class="info footer-column">
+          <ul class="info-list">
+            <li><img class="info-logo" th:src="@{/images/logo-text.png}"></li>
+            <li><span class="description">Приложение для размещения мероприятий и поиска компаний для участия в них</span></li>
+          </ul>
+        </div>
+
+        <div class="about footer-column">
+          <h2 class="footer-column-header">Проект</h2>
+          <ul class="about-list">
+            <li><a href="#">О нас</a></li>
+            <li><a href="#">Отзывы</a></li>
+            <li><a href="#">Сотрудничество</a></li>
+            <li><a href="#">Каталог мест</a></li>
+            <li><a href="#">Подборки</a></li>
+          </ul>
+        </div>
+
+        <div class="help footer-column">
+          <h2 class="footer-column-header">Помощь</h2>
+          <ul class="help-list">
+            <li><a href="#">Вопрос — ответ</a></li>
+            <li><a href="#">Правила</a></li>
+            <li><a href="#">Обратная связь</a></li>
+            <li><a href="#">Задать вопрос</a></li>
+          </ul>
+        </div>
+
+        <div class="contact footer-column">
+          <h2 class="footer-column-header">Разработчик</h2>
+          <ul class="contact-list">
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Email</a></li>
+          </ul>
+        </div>
+
+        <div class="apps footer-column">
+          <h2 class="footer-column-header">Приложения</h2>
+          <ul class="apps-list">
+            <li><a href="#" class="app-btn">
+              <img class="app-btn-pic" th:src="@{/images/app-store-logo.svg}">
+              <div class="app-btn-text">Скачайте в App Store</div>
+            </a></li>
+
+            <li><a href="#" class="app-btn">
+              <img class="app-btn-pic" th:src="@{/images/google-play-logo.svg}">
+              <div class="app-btn-text">Скачайте в Google Play</div>
+            </a></li>
+          </ul>
+        </div>
+
+      </div>
+
+    </footer>
+
+  </main>
+</body>
+
+</html>

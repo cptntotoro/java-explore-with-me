@@ -2,36 +2,38 @@
 <html lang="ru">
 
     <head>
-        <meta charset="utf-8">
-        <title>Sign up</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Explore with me - регистрация</title>
+        <meta name="description" content="Explore with me - Приложение для размещения мероприятий и поиска компаний для участия в них">
+        <link rel="stylesheet" href="sign-up-in-styles.css"/>
     </head>
 
     <body>
-        <h1>Create new account</h1>
 
-        <form method="POST" >
-            <div>
-                <label for="name">Имя</label>
-                <input type="text" id="name">
+        <main class="main">
+
+            <div class="pop-up-form">
+
+                <h1 class="pop-up-header">Регистрация / <a href="sign-in.html">Войти</a></h1>
+
+                <form class="pop-up-fields" method="POST">
+
+                    <input class="pop-up-input" type="text" placeholder="Имя пользователя"/>
+                    <input class="pop-up-input" type="email" placeholder="Почта"/>
+                    <input class="pop-up-input" type="password" placeholder="Пароль"/>
+                    <input class="pop-up-input" type="password" placeholder="Повторите пароль"/>
+
+                    <button class="pop-up-btn" type="submit">Создать аккаунт</button>
+
+                </form>
+
+                <a href="index.html"><div class="x-close-btn"></div></a>
 
             </div>
-            <div>
-                <label for="login">Имя пользователя / Логин</label>
-                <input type="text" id="login"/>
-            </div>
-            <div>
-                <label for="email">E-mail</label>
-                <input type="email" id="email"/>
-            </div>
-            <div>
-                <label for="password">Пароль</label>
-                <input type="password" id="password"/>
-            </div>
-            <div>
-                <label for="password-repeat">Повторите пароль</label>
-                <input type="password" id="password-repeat"/>
-            </div>
-            <button type="submit">Create account</button>
-        </form>
+
+        </main>
+
     </body>
+
 </html>

@@ -110,7 +110,7 @@ body {
     position: relative;
     left: 98%;
     top: -100%;
-    content: url(x-close-btn.png);
+    content: url(../images/x-close-btn.png);
     width: 24px;
     cursor: pointer;
 }

@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Explore with me - найти компанию для посещения мероприятий</title>
         <meta name="description" content="Explore with me - Приложение для размещения мероприятий и поиска компаний для участия в них">
-        <link rel="stylesheet" href="common-styles.css"/>
-        <link rel="stylesheet" href="index-styles.css"/>
+        <link rel="stylesheet" th:href="@{/css/common-styles.css}"/>
+        <link rel="stylesheet" th:href="@{/css/index-styles.css}"/>
     </head>
 
     <body>
         <main class="main">
             <header class="header">
-                <a href="/"><img class="logo" src="logo-compass.png" alt="logo"/></a>
+                <a href="/"><img class="logo" th:src="@{/images/logo-compass.png}" alt="logo"/></a>
                 <nav class="navbar">
                     <form class="search" method="get" action="">
                         <input class="searchbar" name="search" type="text" placeholder="Пикник">
@@ -267,7 +269,7 @@
 
                     <div class="info footer-column">
                         <ul class="info-list">
-                            <li><img class="info-logo" src="logo-text.png"></li>
+                            <li><img class="info-logo" src="../static/images/logo-text.png"></li>
                             <li><span class="description">Приложение для размещения мероприятий и поиска компаний для участия в них</span></li>
                         </ul>
                     </div>
@@ -308,12 +310,12 @@
                         <h2 class="footer-column-header">Приложения</h2>
                         <ul class="apps-list">
                             <li><a href="#" class="app-btn">
-                                <img class="app-btn-pic" src="app-store-logo.svg">
+                                <img class="app-btn-pic" src="../static/images/app-store-logo.svg">
                                 <div class="app-btn-text">Скачайте в App Store</div>
                             </a></li>
 
                             <li><a href="#" class="app-btn">
-                                <img class="app-btn-pic" src="google-play-icon.svg">
+                                <img class="app-btn-pic" src="../static/images/google-play-logo.svg">
                                 <div class="app-btn-text">Скачайте в Google Play</div>
                             </a></li>
                         </ul>
@@ -325,7 +327,7 @@
 
         </main>
 
-        <script src="script.js"></script>
+        <script src="../static/js/script.js"></script>
 
     </body>
 </html>

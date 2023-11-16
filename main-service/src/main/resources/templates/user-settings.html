@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="https://www.thymeleaf.org/">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Explore with me - Профиль</title>
         <meta name="description" content="Explore with me - Редактировать профиль">
-        <link rel="stylesheet" href="common-styles.css"/>
-        <link rel="stylesheet" href="user-settings.css"/>
+        <link rel="stylesheet" th:href="@{/css/common-styles.css}"/>
+        <link rel="stylesheet" th:href="@{/css/user-settings.css}"/>
     </head>
 
     <body>
         <main class="main">
 
             <header class="header">
-                <a href="/"><img class="logo" src="logo-compass.png" alt="logo"/></a>
+                <a href="/"><img class="logo" th:src="@{/images/logo-compass.png}" alt="logo"/></a>
                 <nav class="navbar">
                     <form class="search" method="get" action="">
                         <input class="searchbar" name="search" type="text" placeholder="Пикник">
                     </form>
                     <ul class="navbar-links">
-                        <li><a href="#">Каталог</a></li>
-                        <li><a href="sign-up.html">Войти</a></li>
+                        <li><a th:href="#">Каталог</a></li>
+                        <li><a th:href="sign-up">Войти</a></li>
                     </ul>
                 </nav>
             </header>
@@ -84,7 +84,7 @@
 
                     <div class="info footer-column">
                         <ul class="info-list">
-                            <li><img class="info-logo" src="logo-text.png"></li>
+                            <li><img class="info-logo" th:src="@{/images/logo-text.png}"></li>
                             <li><span class="description">Приложение для размещения мероприятий и поиска компаний для участия в них</span></li>
                         </ul>
                     </div>
@@ -123,12 +123,12 @@
                         <h2 class="footer-column-header">Приложения</h2>
                         <ul class="apps-list">
                             <li><a href="#" class="app-btn">
-                                <img class="app-btn-pic" src="app-store-logo.svg">
+                                <img class="app-btn-pic" th:src="@{/images/app-store-logo.svg}">
                                 <div class="app-btn-text">Скачайте в App Store</div>
                             </a></li>
 
                             <li><a href="#" class="app-btn">
-                                <img class="app-btn-pic" src="google-play-icon.svg">
+                                <img class="app-btn-pic" th:src="@{/images/google-play-logo.svg}">
                                 <div class="app-btn-text">Скачайте в Google Play</div>
                             </a></li>
                         </ul>

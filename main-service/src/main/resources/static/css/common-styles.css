@@ -90,7 +90,7 @@ body {
     display: flex;
     border: 2px solid var(--font-color);
     border-radius: 20px;
-    background: url(search-icon.png) no-repeat 1%;
+    background: url(../images/search-icon.png) no-repeat 1%;
     background-size: 20px;
     width: 80%;
     max-width: 600px;

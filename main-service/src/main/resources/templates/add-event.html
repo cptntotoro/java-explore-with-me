@@ -13,20 +13,7 @@
   <body>
     <main class="main">
 
-      <header class="header">
-        <a th:href="@{/}"><img class="logo" th:src="@{/images/logo-compass.png}" alt="logo"/></a>
-        <nav class="navbar">
-          <form class="search">
-            <input class="searchbar" name="search" type="text" placeholder="Пикник">
-          </form>
-          <ul class="navbar-links">
-            <li><a href="@{/}">Каталог</a></li>
-            <li><a th:href="@{/sign-up}">Войти</a></li>
-            <!--                        <li><a href="#">Аккаунт</a></li>-->
-            <li><a th:href="@{/add-event}">Добавить событие</a></li>
-          </ul>
-        </nav>
-      </header>
+      <div th:replace="fragments/header :: header"></div>
 
       <div class="content-container">
 
@@ -91,8 +78,6 @@
 
             <div class="add-event-field">
               <label class="add-event-label" for="requests">Одобрение заявок</label>
-<!--              TODO: Если ставить галочку, приходит два поля: _requestModeration: on, requestModeration: true-->
-<!--              TODO: Если не ставить, приходит поле: _requestModeration: on, а надо requestModeration: false-->
               <input class="add-event-input" type="checkbox" id="requests" th:field="*{requestModeration}"/>
               <span class="add-event-note">Поставьте галочку, если хотите вручную отбирать заявки на участие</span>
             </div>
@@ -105,65 +90,7 @@
 
       </div>
 
-      <footer class="footer">
-
-        <div class="footer-column-container">
-
-          <div class="info footer-column">
-            <ul class="info-list">
-              <li><img class="info-logo" th:src="@{/images/logo-text.png}"></li>
-              <li><span class="description">Приложение для размещения мероприятий и поиска компаний для участия в них</span></li>
-            </ul>
-          </div>
-
-          <div class="about footer-column">
-            <h2 class="footer-column-header">Проект</h2>
-            <ul class="about-list">
-              <li><a href="#">О нас</a></li>
-              <li><a href="#">Отзывы</a></li>
-              <li><a href="#">Сотрудничество</a></li>
-              <li><a href="#">Каталог мест</a></li>
-              <li><a href="#">Подборки</a></li>
-            </ul>
-          </div>
-
-          <div class="help footer-column">
-            <h2 class="footer-column-header">Помощь</h2>
-            <ul class="help-list">
-              <li><a href="#">Вопрос — ответ</a></li>
-              <li><a href="#">Правила</a></li>
-              <li><a href="#">Обратная связь</a></li>
-              <li><a href="#">Задать вопрос</a></li>
-            </ul>
-          </div>
-
-          <div class="contact footer-column">
-            <h2 class="footer-column-header">Разработчик</h2>
-            <ul class="contact-list">
-              <li><a href="#">GitHub</a></li>
-              <li><a href="#">LinkedIn</a></li>
-              <li><a href="#">Email</a></li>
-            </ul>
-          </div>
-
-          <div class="apps footer-column">
-            <h2 class="footer-column-header">Приложения</h2>
-            <ul class="apps-list">
-              <li><a href="#" class="app-btn">
-                <img class="app-btn-pic" th:src="@{/images/app-store-logo.svg}">
-                <div class="app-btn-text">Скачайте в App Store</div>
-              </a></li>
-
-              <li><a href="#" class="app-btn">
-                <img class="app-btn-pic" th:src="@{/images/google-play-logo.svg}">
-                <div class="app-btn-text">Скачайте в Google Play</div>
-              </a></li>
-            </ul>
-          </div>
-
-        </div>
-
-      </footer>
+      <div th:replace="fragments/footer :: footer"></div>
 
     </main>
   </body>

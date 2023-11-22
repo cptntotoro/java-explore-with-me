@@ -1,7 +1,7 @@
 INSERT INTO roles(name) VALUES ('ROLE_USER');
 INSERT INTO roles(name) VALUES ('ROLE_ADMIN');
 
-INSERT INTO categories(name) VALUES ('выставки');
+INSERT INTO categories(name) VALUES ('Выставки');
 INSERT INTO categories(name) VALUES ('Концерты');
 INSERT INTO categories(name) VALUES ('Театр');
 INSERT INTO categories(name) VALUES ('Обучение');

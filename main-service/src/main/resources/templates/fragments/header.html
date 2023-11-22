@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://www.thymeleaf.org/">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{/css/common-styles.css}"/>
+    </head>
+
+    <body>
+        <main class="main">
+
+            <header class="header" th:fragment="header">
+                <a th:href="@{/}"><img class="logo" th:src="@{/images/logo-compass.png}" alt="logo"/></a>
+                <nav class="navbar">
+                    <form class="search">
+                        <input class="searchbar" name="search" type="text" placeholder="Пикник">
+                    </form>
+                    <ul class="navbar-links">
+                        <!--                        <li><a href="#">Каталог</a></li>-->
+                        <li><a th:href="@{/sign-up}">Войти</a></li>
+                        <li><a th:href="@{/users/profile}">Аккаунт</a></li>
+                        <li><a th:href="@{/users/add-event}">Добавить событие</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+        </main>
+    </body>
+</html>

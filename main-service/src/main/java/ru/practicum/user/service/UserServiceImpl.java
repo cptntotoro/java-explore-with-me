@@ -1,25 +1,21 @@
 package ru.practicum.user.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.dao.DataIntegrityViolationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.practicum.exception.IncorrectRequestException;
 import ru.practicum.exception.ObjectNotFoundException;
 import ru.practicum.exception.SQLConstraintViolationException;
 import ru.practicum.security.model.Role;
 import ru.practicum.security.repository.RoleRepository;
-import ru.practicum.user.dto.NewUserRequestDto;
+import ru.practicum.user.dto.NewUserDto;
 import ru.practicum.user.dto.UserDto;
+import ru.practicum.user.dto.UserProfileInfoDto;
 import ru.practicum.user.mapper.UserMapper;
 import ru.practicum.user.model.User;
 import ru.practicum.user.repository.UserRepository;
@@ -28,10 +24,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @PersistenceContext
@@ -43,19 +41,19 @@ public class UserServiceImpl implements UserService {
     // TODO: Метод для Security. Мб UserDto заменить
     // saveUser
     @Override
-    public UserDto addAdminUser(NewUserRequestDto newUserRequestDto) throws SQLConstraintViolationException {
+    public UserDto addAdminUser(NewUserDto newUserDto) throws SQLConstraintViolationException {
 //        User userFromDB = userRepository.findByUsername(newUserRequestDto.getUsername()).orElseThrow(() -> {
 //            throw new IncorrectRequestException("User with username = " + newUserRequestDto.getUsername() + " already exists.");
 //        });
 
-        User user = userMapper.newUserRequestDtoToUser(newUserRequestDto);
+        User user = userMapper.newUserRequestDtoToUser(newUserDto);
 
         Role role = roleRepository.getByName("ROLE_USER").orElseThrow(() -> {
             throw new ObjectNotFoundException("Role with name = 'USER' doesn't exist.");
         });
 
         user.setRoles(Collections.singleton(role));
-        user.setPassword(newUserRequestDto.getPassword());
+        user.setPassword(newUserDto.getPassword());
 
 //        try {
             user = userRepository.save(user);
@@ -111,10 +109,16 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ObjectNotFoundException("User with email = " + email + " doesn't exist."));
     }
 
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+//        UserProfileInfoDto userProfileInfoDto = userRepository.findByUsername(username)
+//                .orElseThrow(() -> new ObjectNotFoundException("User with username = " + username + " doesn't exist."));
+//
+//        return userProfileInfoDto;
+//
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new ObjectNotFoundException("User with username = " + username + " doesn't exist."));
     }
+
 
     // TODO: Метод для Security
     @Override
@@ -124,7 +128,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto add(NewUserRequestDto newUser) throws SQLConstraintViolationException {
+    public UserDto add(NewUserDto newUser) throws SQLConstraintViolationException {
         User user = userMapper.newUserRequestDtoToUser(newUser);
 
         Role role = roleRepository.getByName("ROLE_USER").orElseThrow(() -> {
@@ -135,6 +139,8 @@ public class UserServiceImpl implements UserService {
         user.setPassword(newUser.getPassword());
 
         user = userRepository.save(user);
+
+        log.info("Создан пользователь с id = " + user.getId());
 
         return userMapper.userToUserDto(user);
     }

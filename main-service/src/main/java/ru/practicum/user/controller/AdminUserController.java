@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.user.dto.NewUserRequestDto;
+import ru.practicum.user.dto.NewUserDto;
 import ru.practicum.user.dto.UserDto;
 import ru.practicum.user.service.UserService;
 
@@ -21,10 +21,10 @@ public class AdminUserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDto addAdminUser(@RequestBody @Valid NewUserRequestDto newUserRequestDto) {
+    public UserDto addAdminUser(@RequestBody @Valid NewUserDto newUserDto) {
 
-        log.info("Calling POST: /admin/users with 'newUserRequestDto': {}", newUserRequestDto.toString());
-        return userService.addAdminUser(newUserRequestDto);
+        log.info("Calling POST: /admin/users with 'newUserRequestDto': {}", newUserDto.toString());
+        return userService.addAdminUser(newUserDto);
     }
 
     @GetMapping

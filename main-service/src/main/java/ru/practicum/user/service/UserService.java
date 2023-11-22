@@ -1,9 +1,8 @@
 package ru.practicum.user.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import ru.practicum.user.dto.NewUserRequestDto;
+import ru.practicum.user.dto.NewUserDto;
 import ru.practicum.user.dto.UserDto;
 import ru.practicum.user.model.User;
 
@@ -16,14 +15,16 @@ public interface UserService extends UserDetailsService {
 
     List<UserDto> getByIds(List<Long> ids, Integer from, Integer size);
 
-    UserDto addAdminUser(NewUserRequestDto body);
+    UserDto addAdminUser(NewUserDto body);
 
     void delete(Long userId);
 
     // TODO: Метод для Security
     List<User> getUsersWithIdBiggerThan(Long idMin);
 
-    UserDto add(NewUserRequestDto user);
+    UserDto add(NewUserDto user);
 
-    User findByEmail(String email) throws UsernameNotFoundException;
+    User loadUserByUsername(String username) throws UsernameNotFoundException;
+
+
 }

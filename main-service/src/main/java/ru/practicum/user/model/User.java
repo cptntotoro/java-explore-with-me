@@ -8,7 +8,6 @@ import ru.practicum.security.model.Role;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -49,8 +48,6 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-    // private Collection<? extends GrantedAuthority> authorities;
-    // https://github.com/bezkoder/spring-boot-login-example/blob/master/src/main/java/com/bezkoder/spring/login/security/services/UserDetailsImpl.java#L15
 
     public User(Long id, String email, String name) {
         this.id = id;

@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.exception.SQLConstraintViolationException;
-import ru.practicum.user.dto.NewUserRequestDto;
+import ru.practicum.user.dto.NewUserDto;
 import ru.practicum.user.dto.UserDto;
 import ru.practicum.user.service.UserService;
 
@@ -28,13 +28,13 @@ public class SignUpController {
     @GetMapping("/sign-up")
     public String getSignUp(Model model) {
         log.info("Calling GET: /sign-up");
-        model.addAttribute("user", new NewUserRequestDto());
+        model.addAttribute("user", new NewUserDto());
         return "sign-up";
     }
 
     @PostMapping("/sign-up")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public String createUserAndLogin(@ModelAttribute("user") @Valid NewUserRequestDto user,
+    public String createUserAndLogin(@ModelAttribute("user") @Valid NewUserDto user,
                                      BindingResult bindingResult, Model model) {
         log.info("Calling POST: /sign-up");
 
@@ -42,8 +42,6 @@ public class SignUpController {
             model.addAttribute("errorMessage", "Passwords do not match."); // "passwordError"
             return "index";
         }
-
-        // TODO Тут я не уверена
 
         UserDto userSaved;
 

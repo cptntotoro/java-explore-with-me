@@ -164,6 +164,8 @@ public class EventServiceImpl implements EventService {
 
         updateEvent(event, userId, eventDto);
 
+        event.setPublishedOn(LocalDateTime.now());
+
         event = eventRepository.save(event);
         return eventMapper.eventToEventFullDto(event);
     }

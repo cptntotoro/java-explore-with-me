@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="https://www.thymeleaf.org/">
+<html lang="ru" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Explore with me - Профиль</title>
-        <meta name="description" content="Explore with me - Редактировать профиль">
+        <title>Explore with me - Настройки аккаунта</title>
+        <meta name="description" content="Explore with me - Настройки аккаунта">
         <link rel="stylesheet" th:href="@{/css/common-styles.css}"/>
         <link rel="stylesheet" th:href="@{/css/user-settings.css}"/>
     </head>
@@ -20,8 +20,8 @@
                         <input class="searchbar" name="search" type="text" placeholder="Пикник">
                     </form>
                     <ul class="navbar-links">
-                        <li><a th:href="#">Каталог</a></li>
-                        <li><a th:href="sign-up">Войти</a></li>
+                        <li><a th:href="">Каталог</a></li>
+                        <li><a th:href="/sign-up">Войти</a></li>
                     </ul>
                 </nav>
             </header>
@@ -30,9 +30,30 @@
 
                 <h1 class="profile-settings-header">Настройки аккаунта</h1>
 
-                <div class="profile-settings-content-block">
+                <div class="profile-info-content-block">
 
                     <h2 class="profile-settings-secondary-header">Данные аккаунта</h2>
+
+                    <div class="profile-settings-field">
+                        <span class="profile-settings-label">Имя</span>
+                        <span class="profile-settings-value" sec:authentication="principal.name"></span>
+                    </div>
+
+                    <div class="profile-settings-field">
+                        <span class="profile-settings-label">Имя пользователя</span>
+                        <span class="profile-settings-value" sec:authentication="principal.username"></span>
+                    </div>
+
+                    <div class="profile-settings-field">
+                        <span class="profile-settings-label">Email</span>
+                        <span class="profile-settings-value" sec:authentication="principal.email"></span>
+                    </div>
+
+                </div>
+
+                <div class="profile-settings-content-block">
+
+                    <h2 class="profile-settings-secondary-header">Изменить данные аккаунта</h2>
 
                     <form class="profile-settings-fields" method="POST">
 

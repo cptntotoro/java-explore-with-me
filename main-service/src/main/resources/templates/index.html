@@ -15,15 +15,16 @@
     <body>
         <main class="main">
             <header class="header">
-                <a href="/"><img class="logo" th:src="@{/images/logo-compass.png}" alt="logo"/></a>
+                <a th:href="@{/}"><img class="logo" th:src="@{/images/logo-compass.png}" alt="logo"/></a>
                 <nav class="navbar">
-                    <form class="search" method="get" action="">
+                    <form class="search">
                         <input class="searchbar" name="search" type="text" placeholder="Пикник">
                     </form>
                     <ul class="navbar-links">
-                        <li><a href="#">Каталог</a></li>
-                        <li><a href="sign-up.html">Войти</a></li>
-                        <li><a href="#">Аккаунт</a></li>
+<!--                        <li><a href="#">Каталог</a></li>-->
+                        <li><a th:href="@{/sign-up}">Войти</a></li>
+                        <li><a th:href="@{/users/profile}">Аккаунт</a></li>
+                        <li><a th:href="@{/users/add-event}">Добавить событие</a></li>
                     </ul>
                 </nav>
             </header>
@@ -269,7 +270,8 @@
 
                     <div class="info footer-column">
                         <ul class="info-list">
-                            <li><img class="info-logo" src="../static/images/logo-text.png"></li>
+                            <li><img class="info-logo" th:src="@{images/logo-text.png}"></li>
+
                             <li><span class="description">Приложение для размещения мероприятий и поиска компаний для участия в них</span></li>
                         </ul>
                     </div>
@@ -310,12 +312,12 @@
                         <h2 class="footer-column-header">Приложения</h2>
                         <ul class="apps-list">
                             <li><a href="#" class="app-btn">
-                                <img class="app-btn-pic" src="../static/images/app-store-logo.svg">
+                                <img class="app-btn-pic" th:src="@{/images/app-store-logo.svg}">
                                 <div class="app-btn-text">Скачайте в App Store</div>
                             </a></li>
 
                             <li><a href="#" class="app-btn">
-                                <img class="app-btn-pic" src="../static/images/google-play-logo.svg">
+                                <img class="app-btn-pic" th:src="@{/images/google-play-logo.svg}">
                                 <div class="app-btn-text">Скачайте в Google Play</div>
                             </a></li>
                         </ul>
@@ -327,7 +329,7 @@
 
         </main>
 
-        <script src="../static/js/script.js"></script>
+        <script th:src="@{/js/script.js}"></script>
 
     </body>
 </html>

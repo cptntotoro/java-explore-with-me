@@ -42,9 +42,17 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/index2")
-    public String getIndex2(Model model) {
-        log.info("Calling GET: /index2");
-        return "index2";
-    }
+//    @GetMapping("/index2")
+//    public String getIndex2(Model model) {
+//        log.info("Calling GET: /index2");
+//
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//
+//        Set<String> roles = authentication.getAuthorities().stream()
+//                .map(r -> r.getAuthority()).collect(Collectors.toSet());
+//
+//        System.out.println(roles);
+//
+//        return "index2";
+//    }
 }

@@ -65,7 +65,7 @@ public class StatsController {
                                                             @RequestParam(defaultValue = "false") Boolean unique,
                                                             @RequestParam String ip) {
 
-        log.info("Calling GET: /stats with 'start': {}, 'end': {}, uris: {}, unique: {}", start, end, uris, unique);
+        log.info("Calling GET: /statsByIp with 'start': {}, 'end': {}, uris: {}, unique: {}, ip: {}", start, end, uris, unique, ip);
 
         LocalDateTime startDT;
         LocalDateTime endDT;

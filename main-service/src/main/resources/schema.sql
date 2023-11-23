@@ -1,9 +1,22 @@
-DROP TABLE IF EXISTS users, categories, locations, events, compilations, comp_events, requests, comments CASCADE;
+DROP TABLE IF EXISTS roles, users, user_roles, categories, locations, events, compilations, comp_events, requests, comments CASCADE;
+
+CREATE TABLE IF NOT EXISTS roles (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
+    name VARCHAR UNIQUE NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS users (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
     email VARCHAR UNIQUE NOT NULL,
-    name VARCHAR UNIQUE NOT NULL
+    name VARCHAR UNIQUE NOT NULL,
+    username VARCHAR UNIQUE NOT NULL,
+    password VARCHAR NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS user_roles (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    role_id BIGINT NOT NULL REFERENCES roles(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS categories (

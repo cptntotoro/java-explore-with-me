@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/users/{userId}")
 @RequiredArgsConstructor
 @Slf4j
-public class CommentController {
+public class PrivateCommentController {
 
     private final CommentService commentService;
 
@@ -52,7 +52,7 @@ public class CommentController {
     @GetMapping ("/comments")
     public List<CommentDto> getUserComments(@PathVariable @Positive Long userId) {
 
-        log.info("Calling POST: /users/{userId}/events/{eventId}/comments with 'userId': {}", userId);
+        log.info("Calling GET: /comments with 'userId': {}", userId);
         return commentService.getAllUserComments(userId);
     }
 

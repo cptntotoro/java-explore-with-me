@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Explore with me - Настройки аккаунта</title>
+        <meta name="description" content="Explore with me - Настройки аккаунта">
+        <link rel="stylesheet" th:href="@{/css/common-styles.css}"/>
+        <link rel="stylesheet" th:href="@{/css/user-settings.css}"/>
+        <script type="text/javascript" th:src="@{/js/header-script.js}"></script>
+    </head>
+
+    <body>
+        <main class="main">
+
+            <div th:replace="fragments/header :: header"></div>
+
+            <div class="content-container">
+
+                <h1 class="profile-settings-header">Настройки аккаунта</h1>
+
+                <div class="profile-info-content-block">
+
+                    <h2 class="profile-settings-secondary-header">Данные аккаунта</h2>
+
+                    <div class="profile-settings-field">
+                        <span class="profile-settings-label">Имя</span>
+                        <span class="profile-settings-value" sec:authentication="principal.name"></span>
+                    </div>
+
+                    <div class="profile-settings-field">
+                        <span class="profile-settings-label">Имя пользователя</span>
+                        <span class="profile-settings-value" sec:authentication="principal.username"></span>
+                    </div>
+
+                    <div class="profile-settings-field">
+                        <span class="profile-settings-label">Email</span>
+                        <span class="profile-settings-value" sec:authentication="principal.email"></span>
+                    </div>
+
+                </div>
+
+                <div class="profile-settings-content-block">
+
+                    <h2 class="profile-settings-secondary-header">Изменить данные аккаунта</h2>
+
+                    <form class="profile-settings-fields" method="POST">
+
+                        <div class="profile-settings-field">
+                            <label class="profile-settings-label" for="email">Email</label>
+                            <input class="profile-settings-input" type="email" id="email"/>
+                        </div>
+
+                        <div class="profile-settings-field">
+                            <label class="profile-settings-label" for="password">Текущий пароль</label>
+                            <input class="profile-settings-input" type="password" id="password"/>
+                        </div>
+
+                        <div class="profile-settings-field">
+                            <label class="profile-settings-label" for="new-password">Новый пароль</label>
+                            <input class="profile-settings-input" type="password" id="new-password"/>
+                        </div>
+
+                        <div class="profile-settings-field">
+                            <label class="profile-settings-label" for="repeat-new-password">Повторите новый пароль</label>
+                            <input class="profile-settings-input" type="password" id="repeat-new-password"/>
+                        </div>
+
+                        <button class="profile-settings-btn" type="submit">Сохранить изменения</button>
+
+                    </form>
+
+                </div>
+
+                    <div class="profile-settings-content-block">
+
+                        <h2 class="profile-settings-secondary-header">Удалить аккаунт</h2>
+
+                        <div class="profile-settings-warning">
+                            <p>Удаление аккаунта произойдёт в течение 14 дней и затронет все ваши данные: созданные события,
+                                комментарии и другие данные. После выбора этой функции вы не сможете восстановить аккаунт.</p>
+                        </div>
+
+                        <button class="profile-settings-btn" type="submit">Удалить аккаунт</button>
+
+                    </div>
+
+            </div>
+
+            <div th:replace="fragments/footer :: footer"></div>
+
+        </main>
+    </body>
+
+</html>

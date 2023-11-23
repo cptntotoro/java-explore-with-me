@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.user.dto.NewUserRequestDto;
+import ru.practicum.user.dto.NewUserDto;
 import ru.practicum.user.dto.UserDto;
 import ru.practicum.user.service.UserService;
 
@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/admin/users")
+@RequestMapping("/admin/users")
 @RequiredArgsConstructor
 @Slf4j
 public class AdminUserController {
@@ -21,10 +21,10 @@ public class AdminUserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDto addAdminUser(@RequestBody @Valid NewUserRequestDto newUserRequestDto) {
+    public UserDto addAdminUser(@RequestBody @Valid NewUserDto newUserDto) {
 
-        log.info("Calling POST: /admin/users with 'newUserRequestDto': {}", newUserRequestDto.toString());
-        return userService.addUser(newUserRequestDto);
+        log.info("Calling POST: /admin/users with 'newUserRequestDto': {}", newUserDto.toString());
+        return userService.addAdminUser(newUserDto);
     }
 
     @GetMapping
@@ -33,7 +33,7 @@ public class AdminUserController {
                                        @RequestParam(name = "size", defaultValue = "10", required = false) Integer size) {
 
         log.info("Calling GET: /admin/users with 'ids': {}, 'from': {}, 'size': {}", ids, from, size);
-        return userService.getUsers(ids, from, size);
+        return userService.getByIds(ids, from, size);
     }
 
     @DeleteMapping("/{userId}")
@@ -41,6 +41,6 @@ public class AdminUserController {
     public void deleteAdminUser(@PathVariable Long userId) {
 
         log.info("Calling DELETE: /admin/users/{userId} with 'userId': {}", userId);
-        userService.deleteUserById(userId);
+        userService.delete(userId);
     }
 }

@@ -12,7 +12,7 @@ import ru.practicum.compilation.service.CompilationService;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(path = "/admin/compilations")
+@RequestMapping("/admin/compilations")
 @RequiredArgsConstructor
 @Slf4j
 public class AdminCompilationController {

@@ -11,7 +11,7 @@ import ru.practicum.category.service.CategoryService;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(path = "/admin/categories")
+@RequestMapping("/admin/categories")
 @RequiredArgsConstructor
 @Slf4j
 public class AdminCategoryController {

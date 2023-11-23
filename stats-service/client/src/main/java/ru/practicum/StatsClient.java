@@ -9,7 +9,8 @@ import java.util.List;
 public class StatsClient {
     private final WebClient webClient;
 
-    public StatsClient(@Value("${stats.server.url}") String statsServerUrl) {
+//    public StatsClient(@Value("${stats.server.url}") String statsServerUrl) {
+    public StatsClient(@Value("http://localhost/:9090") String statsServerUrl) {
         webClient = WebClient.create(statsServerUrl);
     }
 

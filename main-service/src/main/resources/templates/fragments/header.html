@@ -4,7 +4,6 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" th:href="@{/css/common-styles.css}"/>
     </head>
 
     <body>
@@ -17,10 +16,19 @@
                         <input class="searchbar" name="search" type="text" placeholder="Пикник">
                     </form>
                     <ul class="navbar-links">
-                        <!--                        <li><a href="#">Каталог</a></li>-->
-                        <li><a th:href="@{/sign-up}">Войти</a></li>
-                        <li><a th:href="@{/users/profile}">Аккаунт</a></li>
-                        <li><a th:href="@{/users/add-event}">Добавить событие</a></li>
+                        <li class="navbar-link"><a th:href="@{/sign-up}">Войти</a></li>
+                        <li class="navbar-link account-navbar-link">
+                            <a th:href="@{/users/profile}">Аккаунт</a>
+
+                            <div class="profile-dropdown">
+                                <ul class="dropdown-links">
+                                    <li class="dropdown-link"><a th:href="@{/users/profile}">Профиль</a></li>
+                                    <li class="dropdown-link"><a th:href="@{/users/add-event}">Добавить событие</a></li>
+                                    <li class="dropdown-link"><a th:href="@{/users/my-events}">Мои события</a></li>
+                                    <li class="dropdown-link"><a th:href="@{/users/logout}">Выйти</a></li>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                 </nav>
             </header>

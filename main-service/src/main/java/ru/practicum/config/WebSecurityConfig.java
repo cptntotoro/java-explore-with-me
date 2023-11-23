@@ -26,7 +26,7 @@ public class WebSecurityConfig {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/users/**").hasRole("USER")
                 // Доступ разрешен всем пользователей
-                .antMatchers("/", "/resources/**", "/css/**", "/images/**").permitAll()
+                .antMatchers("/", "/resources/**", "/js/**", "/css/**", "/images/**").permitAll()
                 // Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
                 .and()

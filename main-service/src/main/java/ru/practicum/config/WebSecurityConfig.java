@@ -12,8 +12,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-//    private AppBasicAuthenticationEntryPoint authenticationEntryPoint;
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -37,7 +35,7 @@ public class WebSecurityConfig {
                 .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
-                .logout() // https://www.baeldung.com/spring-security-manual-logout
+                .logout()
                 .permitAll()
                 .logoutSuccessUrl("/");
 

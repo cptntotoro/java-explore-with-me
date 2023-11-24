@@ -8,8 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.user.model.User;
-import ru.practicum.user.service.UserService;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,8 +19,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class IndexController {
-
-    private final UserService userService;
 
     @GetMapping("/")
     public String getIndex(Model model) {
@@ -33,12 +32,20 @@ public class IndexController {
         // что означает, что контекст безопасности всегда доступен для методов исполняющихся в том же самом потоке.
 
         // Authentication представляет пользователя (Principal) с точки зрения Spring Security
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        List<String> authorities = authentication.getAuthorities()
+                .stream()
+                .map(scope -> scope.toString())
+                .collect(Collectors.toList());
 
         Set<String> roles = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
 
-        System.out.println(roles);
+        model.addAttribute("authorities", authorities);
+
+        log.info("Роли пользователя: " + roles);
 
         return "index";
     }

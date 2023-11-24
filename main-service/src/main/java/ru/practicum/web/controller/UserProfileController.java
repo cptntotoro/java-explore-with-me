@@ -18,6 +18,6 @@ public class UserProfileController {
     public String getUserProfile(Model model) {
         log.info("Calling GET: /users/profile");
         model.addAttribute("user", new NewUserDto());
-        return "user-profile";
+        return "profile";
     }
 }

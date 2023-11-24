@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/users/add-event")
 @RequiredArgsConstructor
 @Slf4j
-public class WebEventController {
+public class UserEventController {
 
     private final EventService eventService;
     private final UserService userService;

@@ -71,15 +71,6 @@
             <version>9.0.44</version>
         </dependency>
 
-        <!-- Удалить по необходимости  -->
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -91,56 +82,12 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.thymeleaf.extras</groupId>-->
-<!--            <artifactId>thymeleaf-extras-springsecurity4</artifactId>-->
-<!--            &lt;!&ndash; Temporary explicit version to fix Thymeleaf bug &ndash;&gt;-->
-<!--            <version>3.0.5.RELEASE</version>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity6</artifactId>
             <!-- Temporary explicit version to fix Thymeleaf bug -->
             <version>3.1.1.RELEASE</version>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.thymeleaf</groupId>-->
-<!--            <artifactId>thymeleaf</artifactId>-->
-<!--            <version>3.0.11.RELEASE</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.thymeleaf</groupId>-->
-<!--            <artifactId>thymeleaf-spring5</artifactId>-->
-<!--            <version>3.0.11.RELEASE</version>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>org.glassfish.web</groupId>-->
-<!--            <artifactId>jakarta.servlet.jsp.jstl</artifactId>-->
-<!--            <version>2.0.0</version>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>javax.servlet</groupId>-->
-<!--            <artifactId>jstl</artifactId>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>jakarta.servlet.jsp.jstl</groupId>-->
-<!--            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>-->
-<!--            <version>3.0.0</version>-->
-<!--        </dependency>-->
-
-        <!-- Удалить по необходимости  -->
-
-<!--        <dependency>-->
-<!--            <groupId>javax.servlet</groupId>-->
-<!--            <artifactId>javax.servlet-api</artifactId>-->
-<!--            <version>4.0.1</version>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

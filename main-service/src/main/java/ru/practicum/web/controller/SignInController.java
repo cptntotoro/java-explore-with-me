@@ -2,6 +2,7 @@ package ru.practicum.web.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +31,7 @@ public class SignInController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         Set<String> roles = authentication.getAuthorities().stream()
-                .map(r -> r.getAuthority()).collect(Collectors.toSet());
+                .map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
 
         System.out.println(roles);
 
@@ -47,7 +48,7 @@ public class SignInController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         Set<String> roles = auth.getAuthorities().stream()
-                .map(r -> r.getAuthority()).collect(Collectors.toSet());
+                .map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
 
         System.out.println(roles);
 

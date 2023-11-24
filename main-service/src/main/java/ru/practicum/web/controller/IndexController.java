@@ -2,6 +2,7 @@ package ru.practicum.web.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,24 +36,10 @@ public class IndexController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         Set<String> roles = authentication.getAuthorities().stream()
-                .map(r -> r.getAuthority()).collect(Collectors.toSet());
+                .map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
 
         System.out.println(roles);
 
         return "index";
     }
-
-//    @GetMapping("/index2")
-//    public String getIndex2(Model model) {
-//        log.info("Calling GET: /index2");
-//
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//
-//        Set<String> roles = authentication.getAuthorities().stream()
-//                .map(r -> r.getAuthority()).collect(Collectors.toSet());
-//
-//        System.out.println(roles);
-//
-//        return "index2";
-//    }
 }

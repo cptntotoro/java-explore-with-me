@@ -25,6 +25,4 @@ public interface UserService extends UserDetailsService {
     UserDto add(NewUserDto user);
 
     User loadUserByUsername(String username) throws UsernameNotFoundException;
-
-
 }

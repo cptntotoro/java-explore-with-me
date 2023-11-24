@@ -1,8 +1,7 @@
-package ru.practicum.security.model;
+package ru.practicum.user.model;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import ru.practicum.user.model.User;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -28,15 +27,6 @@ public class Role implements GrantedAuthority {
     @Transient
     @ManyToMany(mappedBy = "user_roles")
     private Set<User> users;
-
-    public Role(Long id) {
-        this.id = id;
-    }
-
-    public Role(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     @Override
     public String getAuthority() {

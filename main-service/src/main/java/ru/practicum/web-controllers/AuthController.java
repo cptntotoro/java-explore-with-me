@@ -39,7 +39,7 @@ public class AuthController {
         log.info("Calling POST: /sign-up");
 
         if (!user.getPassword().equals(user.getPasswordConfirm())){
-            model.addAttribute("errorMessage", "Passwords do not match."); // "passwordError"
+            model.addAttribute("errorMessage", "Passwords do not match.");
             return "index";
         }
 

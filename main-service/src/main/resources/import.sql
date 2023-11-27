@@ -10,3 +10,8 @@ INSERT INTO categories(name) VALUES ('Фестивали');
 INSERT INTO categories(name) VALUES ('Экскурсии');
 INSERT INTO categories(name) VALUES ('Стендапы');
 INSERT INTO categories(name) VALUES ('Квесты');
+
+INSERT INTO users(name, username, password, email) VALUES ('admin', 'admin', 'admin', 'admin@admin.ru');
+
+INSERT INTO user_roles(user_id, role_id) VALUES (1, 1);
+INSERT INTO user_roles(user_id, role_id) VALUES (1, 2);

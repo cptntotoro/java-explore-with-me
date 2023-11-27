@@ -1,4 +1,4 @@
-package ru.practicum.config;
+package ru.practicum.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -18,20 +18,14 @@ public class WebSecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                // Доступ только для незарегистрированных пользователей
                 .antMatchers("/sign-up", "/sign-in").not().fullyAuthenticated()
-                // Доступ только для пользователей с ролью Администратор
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/users/**").hasRole("USER")
-                // Доступ разрешен всем пользователей
                 .antMatchers("/", "/resources/**", "/js/**", "/css/**", "/images/**").permitAll()
-                // Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
                 .and()
-                // Настройка для входа в систему
                 .formLogin()
                 .loginPage("/sign-in")
-                // Перенаправление на главную страницу после успешного входа
                 .defaultSuccessUrl("/")
                 .permitAll()
                 .and()

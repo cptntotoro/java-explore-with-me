@@ -1,8 +1,8 @@
-package ru.practicum.security.repository;
+package ru.practicum.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.practicum.security.model.Role;
+import ru.practicum.user.model.Role;
 
 import java.util.Optional;
 

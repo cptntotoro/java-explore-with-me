@@ -1,7 +1,6 @@
-package ru.practicum.web.controller;
+package ru.practicum.web;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.category.dto.CategoryDto;
 import ru.practicum.category.service.CategoryService;
-import ru.practicum.event.dto.EventFullDto;
 import ru.practicum.event.dto.NewEventDto;
 import ru.practicum.event.service.EventService;
 import ru.practicum.user.model.User;
@@ -22,8 +20,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/users/add-event")
 @RequiredArgsConstructor
-@Slf4j
-public class WebEventController {
+public class UserEventController {
 
     private final EventService eventService;
     private final UserService userService;
@@ -31,10 +28,8 @@ public class WebEventController {
 
     @GetMapping
     public String newEventPage(Model model) {
-        log.info("Calling GET: /users/add-event");
         model.addAttribute("event", new NewEventDto());
 
-        log.info("Calling GET: /categories");
         List<CategoryDto> selectCategoryOptions = categoryService.getAll(0, 10);
         model.addAttribute("selectCategoryOptions", selectCategoryOptions);
 
@@ -44,15 +39,11 @@ public class WebEventController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public String addUserEvent(@ModelAttribute("event") @RequestBody @Valid NewEventDto event) {
-        log.info("Calling POST: /users/add-event");
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         User currentUser = userService.loadUserByUsername(authentication.getName());
 
-        EventFullDto savedEvent = eventService.addUserEvent(currentUser.getId(), event);
-
-        log.info(savedEvent.toString());
+        eventService.addUserEvent(currentUser.getId(), event);
 
         return "index";
     }

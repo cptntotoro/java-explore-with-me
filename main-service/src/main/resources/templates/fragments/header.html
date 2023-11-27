@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="https://www.thymeleaf.org/">
+<html lang="ru" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <head>
         <meta charset="UTF-8">
@@ -17,7 +17,7 @@
                     </form>
                     <ul class="navbar-links">
                         <li class="navbar-link"><a th:href="@{/sign-up}">Войти</a></li>
-                        <li class="navbar-link account-navbar-link">
+                        <li class="navbar-link account-navbar-link" sec:authorize="isFullyAuthenticated">
                             <a th:href="@{/users/profile}">Аккаунт</a>
 
                             <div class="profile-dropdown">
@@ -25,7 +25,11 @@
                                     <li class="dropdown-link"><a th:href="@{/users/profile}">Профиль</a></li>
                                     <li class="dropdown-link"><a th:href="@{/users/add-event}">Добавить событие</a></li>
                                     <li class="dropdown-link"><a th:href="@{/users/my-events}">Мои события</a></li>
-                                    <li class="dropdown-link"><a th:href="@{/users/logout}">Выйти</a></li>
+                                    <li class="dropdown-link">
+                                        <form th:action="@{/logout}" method="POST">
+                                            <button type="submit">Выйти</button>
+                                        </form>
+                                    </li>
                                 </ul>
                             </div>
                         </li>

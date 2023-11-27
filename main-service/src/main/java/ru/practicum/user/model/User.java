@@ -3,7 +3,6 @@ package ru.practicum.user.model;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.practicum.security.model.Role;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;

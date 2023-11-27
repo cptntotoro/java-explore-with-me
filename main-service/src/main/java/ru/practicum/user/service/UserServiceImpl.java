@@ -6,25 +6,22 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.practicum.exception.ObjectNotFoundException;
 import ru.practicum.exception.SQLConstraintViolationException;
-import ru.practicum.security.model.Role;
-import ru.practicum.security.repository.RoleRepository;
+import ru.practicum.user.model.Role;
 import ru.practicum.user.dto.NewUserDto;
 import ru.practicum.user.dto.UserDto;
-import ru.practicum.user.dto.UserProfileInfoDto;
 import ru.practicum.user.mapper.UserMapper;
 import ru.practicum.user.model.User;
+import ru.practicum.user.repository.RoleRepository;
 import ru.practicum.user.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -110,11 +107,6 @@ public class UserServiceImpl implements UserService {
     }
 
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
-//        UserProfileInfoDto userProfileInfoDto = userRepository.findByUsername(username)
-//                .orElseThrow(() -> new ObjectNotFoundException("User with username = " + username + " doesn't exist."));
-//
-//        return userProfileInfoDto;
-//
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new ObjectNotFoundException("User with username = " + username + " doesn't exist."));
     }

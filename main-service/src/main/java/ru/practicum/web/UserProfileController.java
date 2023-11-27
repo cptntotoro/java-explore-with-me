@@ -1,4 +1,4 @@
-package ru.practicum.web.controller;
+package ru.practicum.web;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +16,7 @@ public class UserProfileController {
 
     @GetMapping
     public String getUserProfile(Model model) {
-        log.info("Calling GET: /users/profile");
         model.addAttribute("user", new NewUserDto());
-        return "user-profile";
+        return "profile";
     }
 }

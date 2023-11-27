@@ -137,7 +137,7 @@ public class CommentRepositoryTest {
         assertNotNull(commentOptional);
         assertEquals(CommentStatus.PENDING, commentOptional.get().getStatus());
 
-        Boolean commentExists = commentRepository.existsByIdAndUserIdAndEventIdAndStatus(comment.getId(), user.getId(), event.getId(), CommentStatus.PENDING);
+        boolean commentExists = commentRepository.existsByIdAndUserIdAndEventIdAndStatus(comment.getId(), user.getId(), event.getId(), CommentStatus.PENDING);
 
         assertTrue(commentExists);
     }

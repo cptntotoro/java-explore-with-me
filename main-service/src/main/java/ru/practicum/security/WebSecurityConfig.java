@@ -1,4 +1,4 @@
-package ru.practicum.config;
+package ru.practicum.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -12,32 +12,24 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-//    private AppBasicAuthenticationEntryPoint authenticationEntryPoint;
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                // Доступ только для незарегистрированных пользователей
                 .antMatchers("/sign-up", "/sign-in").not().fullyAuthenticated()
-                // Доступ только для пользователей с ролью Администратор
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/users/**").hasRole("USER")
-                // Доступ разрешен всем пользователей
                 .antMatchers("/", "/resources/**", "/js/**", "/css/**", "/images/**").permitAll()
-                // Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
                 .and()
-                // Настройка для входа в систему
                 .formLogin()
                 .loginPage("/sign-in")
-                // Перенаправление на главную страницу после успешного входа
                 .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
-                .logout() // https://www.baeldung.com/spring-security-manual-logout
+                .logout()
                 .permitAll()
                 .logoutSuccessUrl("/");
 

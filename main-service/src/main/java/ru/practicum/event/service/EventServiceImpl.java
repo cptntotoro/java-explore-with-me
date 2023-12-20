@@ -13,8 +13,6 @@ import ru.practicum.RequestOutputDto;
 import ru.practicum.StatsClient;
 import ru.practicum.category.model.Category;
 import ru.practicum.category.repository.CategoryRepository;
-import ru.practicum.event.dto.EventFullDto;
-import ru.practicum.event.dto.EventShortDto;
 import ru.practicum.event.dto.EventUpdateDto;
 import ru.practicum.event.dto.NewEventDto;
 import ru.practicum.event.mapper.EventMapper;
@@ -38,7 +36,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.springframework.data.jpa.domain.Specification.where;
-import static ru.practicum.event.repository.EventSpecRepository.*;
+import static ru.practicum.event.repository.EventSpecRepository.hasAvailable;
+import static ru.practicum.event.repository.EventSpecRepository.hasCategories;
+import static ru.practicum.event.repository.EventSpecRepository.hasPaid;
+import static ru.practicum.event.repository.EventSpecRepository.hasRangeEnd;
+import static ru.practicum.event.repository.EventSpecRepository.hasRangeStart;
+import static ru.practicum.event.repository.EventSpecRepository.hasStates;
+import static ru.practicum.event.repository.EventSpecRepository.hasText;
+import static ru.practicum.event.repository.EventSpecRepository.hasUsers;
 
 @Service
 @RequiredArgsConstructor
@@ -52,8 +57,8 @@ public class EventServiceImpl implements EventService {
     private final StatsClient statsClient = new StatsClient("http://ewm-stats-server:9090");
 
     @Override
-    public List<EventFullDto> getAdminEvents(List<Long> users, List<EventState> states, List<Long> categories,
-                                             LocalDateTime rangeStart, LocalDateTime rangeEnd, Integer from, Integer size) {
+    public List<Event> getAdminEvents(List<Long> users, List<EventState> states, List<Long> categories,
+                                      LocalDateTime rangeStart, LocalDateTime rangeEnd, Integer from, Integer size) {
 
         if ((rangeStart != null && rangeEnd != null) && (rangeStart.isAfter(rangeEnd) || rangeStart.isEqual(rangeEnd))) {
             throw new IncorrectRequestException("Start time must not after or equal to end time.");
@@ -63,25 +68,21 @@ public class EventServiceImpl implements EventService {
 
         if (users != null || states != null || categories != null || rangeStart != null || rangeEnd != null) {
 
-            Page<Event> events = eventSpecRepository.findAll(where(hasUsers(users))
-                    .and(hasStates(states))
-                    .and(hasCategories(categories))
-                    .and(hasRangeStart(rangeStart))
-                    .and(hasRangeEnd(rangeEnd)),
-                    pageable);
+            return eventSpecRepository.findAll(where(hasUsers(users))
+                            .and(hasStates(states))
+                            .and(hasCategories(categories))
+                            .and(hasRangeStart(rangeStart))
+                            .and(hasRangeEnd(rangeEnd)),
+                    pageable).stream().collect(Collectors.toList());
 
-            return events.stream()
-                    .map(eventMapper::eventToEventFullDto)
-                    .collect(Collectors.toList());
         } else {
             return eventRepository.findAll(pageable).stream()
-                    .map(eventMapper::eventToEventFullDto)
                     .collect(Collectors.toList());
         }
     }
 
     @Override
-    public EventFullDto updateAdminEvent(Long eventId, EventUpdateDto eventUpdateDto) {
+    public Event updateAdminEvent(Long eventId, EventUpdateDto eventUpdateDto) {
         Event event = eventRepository.findById(eventId).orElseThrow(() -> {
             throw new ObjectNotFoundException("Event with id = " + eventId + " is not found.");
         });
@@ -106,14 +107,13 @@ public class EventServiceImpl implements EventService {
             }
         }
 
-        event = eventRepository.save(event);
-        return eventMapper.eventToEventFullDto(event);
+        return eventRepository.save(event);
     }
 
     @Override
-    public List<EventShortDto> getAll(String text, List<Long> categories, Boolean paid, LocalDateTime rangeStart,
-                                      LocalDateTime rangeEnd, Boolean onlyAvailable, Integer from, Integer size,
-                                      EventSort sort, HttpServletRequest request) {
+    public List<Event> getAll(String text, List<Long> categories, Boolean paid, LocalDateTime rangeStart,
+                              LocalDateTime rangeEnd, Boolean onlyAvailable, Integer from, Integer size,
+                              EventSort sort, HttpServletRequest request) {
 
         if ((rangeStart != null && rangeEnd != null) && (rangeStart.isAfter(rangeEnd) || rangeStart.isEqual(rangeEnd))) {
             throw new IncorrectRequestException("Start time must not after or equal to end time.");
@@ -134,56 +134,52 @@ public class EventServiceImpl implements EventService {
 
         return eventsPage.stream()
                 .filter(event -> event.getPublishedOn() != null)
-                .map(eventMapper::eventToShortDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public EventFullDto get(Long eventId, HttpServletRequest request) {
+    public Event get(Long eventId, HttpServletRequest request) {
         Event event = eventRepository.findByIdAndStateIs(eventId, EventState.PUBLISHED).orElseThrow(() -> {
             throw new ObjectNotFoundException("Event with id = " + eventId + " was not found.");
         });
 
         updateViews(Collections.singletonList(event), request);
 
-        return eventMapper.eventToEventFullDto(event);
+        return event;
     }
 
     @Override
-    public List<EventShortDto> getUserEvents(Long userId, Integer from, Integer size) {
+    public List<Event> getUserEvents(Long userId, Integer from, Integer size) {
         Pageable pageable = PageRequest.of(from / size, size, Sort.by("id").ascending());
 
         return eventRepository.findAllByInitiatorId(userId, pageable).stream()
-                .map(eventMapper::eventToShortDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public EventFullDto addUserEvent(Long userId, NewEventDto eventDto) {
+    public Event addUserEvent(Long userId, NewEventDto eventDto) {
         Event event = eventMapper.newEventDtoToEvent(eventDto);
 
         updateEvent(event, userId, eventDto);
 
         event.setPublishedOn(LocalDateTime.now());
 
-        event = eventRepository.save(event);
-        return eventMapper.eventToEventFullDto(event);
+        return eventRepository.save(event);
     }
 
     @Override
-    public EventFullDto getUserEventById(Long userId, Long eventId) {
+    public Event getUserEventById(Long userId, Long eventId) {
         Event event = eventRepository.findByIdAndInitiatorId(eventId, userId).orElseThrow(() -> {
             throw new ObjectNotFoundException("Event with id = " + eventId + " and user id = " + userId + " is not found.");
         });
 
         event.setViews(event.getViews() + 1);
 
-        event = eventRepository.save(event);
-        return eventMapper.eventToEventFullDto(event);
+        return eventRepository.save(event);
     }
 
     @Override
-    public EventFullDto updateUserEventById(Long userId, Long eventId, EventUpdateDto eventDto) {
+    public Event updateUserEventById(Long userId, Long eventId, EventUpdateDto eventDto) {
         Event event = eventRepository.findByIdAndInitiatorId(eventId, userId).orElseThrow(() -> {
             throw new ObjectNotFoundException("Event with id = " + eventId + " and user id = " + userId + " is not found.");
         });
@@ -205,9 +201,7 @@ public class EventServiceImpl implements EventService {
             }
         }
 
-        event = eventRepository.save(event);
-
-        return eventMapper.eventToEventFullDto(event);
+        return eventRepository.save(event);
     }
 
     private void updateViews(List<Event> events, HttpServletRequest request) {

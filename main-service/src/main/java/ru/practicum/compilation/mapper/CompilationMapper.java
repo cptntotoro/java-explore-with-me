@@ -9,6 +9,8 @@ import ru.practicum.compilation.dto.NewCompilationDto;
 import ru.practicum.compilation.model.Compilation;
 import ru.practicum.event.mapper.EventMapper;
 
+import java.util.List;
+
 @Mapper(uses = EventMapper.class, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CompilationMapper {
 
@@ -19,4 +21,6 @@ public interface CompilationMapper {
     Compilation newCompilationDtoToCompilation(NewCompilationDto compilationDto);
 
     CompilationDto compilationToCompilationDto(Compilation compilation);
+
+    List<CompilationDto> listCompilationToListCompilationDto(List<Compilation> compilation);
 }

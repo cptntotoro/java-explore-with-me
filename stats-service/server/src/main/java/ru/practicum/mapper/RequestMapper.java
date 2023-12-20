@@ -12,9 +12,8 @@ public interface RequestMapper {
     RequestMapper INSTANCE = Mappers.getMapper(RequestMapper.class);
 
     @Mapping(source = "app.name", target = "app")
-
-    RequestDto toRequestDto(Request request);
+    RequestDto requestToRequestDto(Request request);
 
     @Mapping(source = "app", target = "app.name")
-    Request toRequest(RequestDto requestDto);
+    Request requestDtoToRequest(RequestDto requestDto);
 }

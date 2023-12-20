@@ -7,7 +7,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import ru.practicum.category.dto.CategoryDto;
 import ru.practicum.category.dto.NewCategoryDto;
 import ru.practicum.category.mapper.CategoryMapper;
 import ru.practicum.category.model.Category;
@@ -30,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper categoryMapper;
 
     @Override
-    public CategoryDto add(NewCategoryDto newCategoryDto) {
+    public Category add(NewCategoryDto newCategoryDto) {
 
         Category category = categoryMapper.newCategoryDtoToCategory(newCategoryDto);
 
@@ -40,11 +39,11 @@ public class CategoryServiceImpl implements CategoryService {
             throw new SQLConstraintViolationException("Category with name = " + newCategoryDto.getName() + " already exists.");
         }
 
-        return categoryMapper.categoryToCategoryDto(category);
+        return category;
     }
 
     @Override
-    public CategoryDto update(Long catId, NewCategoryDto categoryDto) {
+    public Category update(Long catId, NewCategoryDto categoryDto) {
 
         Category category = categoryRepository.findById(catId).orElseThrow(() -> {
             throw new ObjectNotFoundException("Category with id = " + catId + " doesn't exist.");
@@ -58,17 +57,15 @@ public class CategoryServiceImpl implements CategoryService {
             throw new SQLConstraintViolationException("Category with name = " + categoryDto.getName() + " already exists.");
         }
 
-        return categoryMapper.categoryToCategoryDto(category);
+        return category;
     }
 
     @Override
-    public CategoryDto get(Long catId) {
+    public Category get(Long catId) {
 
-        Category category = categoryRepository.findById(catId).orElseThrow(() -> {
+        return categoryRepository.findById(catId).orElseThrow(() -> {
             throw new ObjectNotFoundException("Category with id = " + catId + " doesn't exist.");
         });
-
-        return categoryMapper.categoryToCategoryDto(category);
     }
 
     @Override
@@ -86,13 +83,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryDto> getAll(Integer from, Integer size) {
+    public List<Category> getAll(Integer from, Integer size) {
 
         Sort sort = Sort.by("id").ascending();
         Pageable pageable = PageRequest.of(from / size, size, sort);
 
-        List<CategoryDto> categories = categoryRepository.findAll(pageable).stream()
-                .map(categoryMapper::categoryToCategoryDto)
+        List<Category> categories = categoryRepository.findAll(pageable).stream()
                 .collect(Collectors.toList());
 
         return (!categories.isEmpty()) ? categories : new ArrayList<>();

@@ -7,6 +7,8 @@ import ru.practicum.comment.dto.CommentDto;
 import ru.practicum.comment.dto.NewCommentDto;
 import ru.practicum.comment.model.Comment;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
     CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
@@ -19,4 +21,6 @@ public interface CommentMapper {
     Comment newCommentDtoToComment(NewCommentDto newCommentDto);
 
     CommentDto commentToCommentDto(Comment comment);
+
+    List<CommentDto> listCommentToListCommentDto(List<Comment> comment);
 }

@@ -8,11 +8,15 @@ import ru.practicum.category.dto.CategoryDto;
 import ru.practicum.category.dto.NewCategoryDto;
 import ru.practicum.category.model.Category;
 
+import java.util.List;
+
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CategoryMapper {
     CategoryMapper INSTANCE = Mappers.getMapper(CategoryMapper.class);
 
     CategoryDto categoryToCategoryDto(Category category);
+
+    List<CategoryDto> listCategoryToListCategoryDto(List<Category> category);
 
     @Mapping(target = "id", ignore = true)
     Category newCategoryDtoToCategory(NewCategoryDto newCategoryDto);

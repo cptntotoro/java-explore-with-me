@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.comment.dto.CommentDto;
 import ru.practicum.comment.dto.CommentStatusUpdateRequest;
 import ru.practicum.comment.dto.NewCommentDto;
 import ru.practicum.comment.mapper.CommentMapper;
@@ -30,7 +29,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springframework.data.jpa.domain.Specification.where;
-import static ru.practicum.comment.repository.CommentSpecRepository.*;
+import static ru.practicum.comment.repository.CommentSpecRepository.hasEvents;
+import static ru.practicum.comment.repository.CommentSpecRepository.hasRangeEnd;
+import static ru.practicum.comment.repository.CommentSpecRepository.hasRangeStart;
+import static ru.practicum.comment.repository.CommentSpecRepository.hasStatuses;
+import static ru.practicum.comment.repository.CommentSpecRepository.hasText;
+import static ru.practicum.comment.repository.CommentSpecRepository.hasUsers;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +46,7 @@ public class CommentServiceImpl implements CommentService {
     private final CommentMapper commentMapper;
 
     @Override
-    public CommentDto addUserComment(Long userId, Long eventId, NewCommentDto newCommentDto) {
+    public Comment addUserComment(Long userId, Long eventId, NewCommentDto newCommentDto) {
         User commenter = userRepository.findById(userId).orElseThrow(() -> {
             throw new ObjectNotFoundException("User with id = " + userId + " was not found.");
         });
@@ -61,13 +65,11 @@ public class CommentServiceImpl implements CommentService {
         comment.setCreatedOn(LocalDateTime.now());
         comment.setStatus(CommentStatus.PENDING);
 
-        comment = commentRepository.save(comment);
-
-        return commentMapper.commentToCommentDto(comment);
+        return commentRepository.save(comment);
     }
 
     @Override
-    public CommentDto updateUserComment(Long userId, Long eventId, Long commentId, NewCommentDto newCommentDto) {
+    public Comment updateUserComment(Long userId, Long eventId, Long commentId, NewCommentDto newCommentDto) {
         Comment comment = commentRepository.findByIdAndUserIdAndEventId(commentId, userId, eventId).orElseThrow(() -> {
             throw new ObjectNotFoundException("Comment with id = " + commentId + " by user id = " + userId +
                     " for event id = " + eventId + " doesn't exist.");
@@ -81,13 +83,11 @@ public class CommentServiceImpl implements CommentService {
         comment.setCreatedOn(LocalDateTime.now());
         comment.setStatus(CommentStatus.PENDING);
 
-        comment = commentRepository.save(comment);
-
-        return commentMapper.commentToCommentDto(comment);
+        return commentRepository.save(comment);
     }
 
     @Override
-    public CommentDto getUserEventComment(Long userId, Long eventId, Long commentId) {
+    public Comment getUserEventComment(Long userId, Long eventId, Long commentId) {
         Comment comment = commentRepository.findByIdAndUserIdAndEventId(commentId, userId, eventId).orElseThrow(() -> {
             throw new ObjectNotFoundException("Comment with id = " + commentId + " by user id = " + userId +
                     " for event id = " + eventId + " doesn't exist.");
@@ -97,30 +97,26 @@ public class CommentServiceImpl implements CommentService {
             throw new RequestConflictException("Users are not allowed to review comments, which are pending moderation.");
         }
 
-        return commentMapper.commentToCommentDto(comment);
+        return comment;
     }
 
     @Override
-    public List<CommentDto> getAllUserComments(Long userId) {
+    public List<Comment> getAllUserComments(Long userId) {
         List<Comment> comments = commentRepository.findAllByUserIdAndStatus(userId, CommentStatus.PUBLISHED);
 
         if (!comments.isEmpty()) {
-            return comments.stream()
-                    .map(commentMapper::commentToCommentDto)
-                    .collect(Collectors.toList());
+            return comments;
         }
 
         return new ArrayList<>();
     }
 
     @Override
-    public List<CommentDto> getAllUserEventComments(Long userId, Long eventId) {
+    public List<Comment> getAllUserEventComments(Long userId, Long eventId) {
         List<Comment> comments = commentRepository.findAllByUserIdAndEventIdAndStatus(userId, eventId, CommentStatus.PUBLISHED);
 
         if (!comments.isEmpty()) {
-            return comments.stream()
-                    .map(commentMapper::commentToCommentDto)
-                    .collect(Collectors.toList());
+            return comments;
         }
 
         return new ArrayList<>();
@@ -138,9 +134,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentDto> getAdminComments(String text, List<Long> users, List<CommentStatus> statuses, List<Long> events,
-                                             LocalDateTime rangeStart, LocalDateTime rangeEnd,
-                                             Integer from, Integer size) {
+    public List<Comment> getAdminComments(String text, List<Long> users, List<CommentStatus> statuses, List<Long> events,
+                                          LocalDateTime rangeStart, LocalDateTime rangeEnd,
+                                          Integer from, Integer size) {
 
         if ((rangeStart != null && rangeEnd != null) && (rangeStart.isAfter(rangeEnd) || rangeStart.isEqual(rangeEnd))) {
             throw new IncorrectRequestException("Start time must not after or equal to end time.");
@@ -149,19 +145,18 @@ public class CommentServiceImpl implements CommentService {
         Pageable pageable = PageRequest.of(from / size, size, Sort.by("id").ascending());
 
         Page<Comment> commentsPage = commentSpecRepository.findAll(where(hasText(text))
-                        .and(hasUsers(users))
-                        .and(hasStatuses(statuses))
+                .and(hasUsers(users))
+                .and(hasStatuses(statuses))
                         .and(hasEvents(events))
                         .and(hasRangeStart(rangeStart))
                         .and(hasRangeEnd(rangeEnd)), pageable);
 
         return commentsPage.stream()
-                .map(commentMapper::commentToCommentDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<CommentDto> moderateAdminComments(CommentStatusUpdateRequest updateRequest) {
+    public List<Comment> moderateAdminComments(CommentStatusUpdateRequest updateRequest) {
         List<Comment> comments = commentRepository.findAllByIdInAndStatus(updateRequest.getCommentIds(), CommentStatus.PENDING);
 
         if (comments.size() != updateRequest.getCommentIds().size()) {
@@ -172,9 +167,7 @@ public class CommentServiceImpl implements CommentService {
             case PUBLISHED:
                 comments.forEach(comment -> comment.setStatus(CommentStatus.PUBLISHED));
                 comments = commentRepository.saveAll(comments);
-                return comments.stream()
-                        .map(commentMapper::commentToCommentDto)
-                        .collect(Collectors.toList());
+                return comments;
             case DELETED:
                 comments.forEach(comment -> commentRepository.deleteAllByIdIn(updateRequest.getCommentIds()));
                 return new ArrayList<>();

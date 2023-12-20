@@ -3,8 +3,8 @@ package ru.practicum.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.RequestDto;
-import ru.practicum.mapper.RequestMapper;
 import ru.practicum.RequestOutputDto;
+import ru.practicum.mapper.RequestMapper;
 import ru.practicum.model.App;
 import ru.practicum.model.Request;
 import ru.practicum.repository.AppRepository;
@@ -27,7 +27,7 @@ public class StatsServiceImpl implements StatsService {
 
         App app = optionalApp.orElseGet(() -> appRepository.save(new App(requestDto.getApp())));
 
-        Request request = mapper.toRequest(requestDto);
+        Request request = mapper.requestDtoToRequest(requestDto);
         request.setApp(app);
         requestRepository.save(request);
     }
